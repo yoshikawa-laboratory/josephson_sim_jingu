@@ -1,0 +1,130 @@
+**** **** **** **** **** **** **** **** **** **** **** 
+*JSIM control file for CADENCE by kameda@cq.jp.nec.com
+**** **** **** **** **** **** **** **** **** **** ****
+
+*JSIM model
+**HSTP**
+.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.064pF, R0=100ohm, Rn=17ohm, Icrit=0.1mA)
+**OPEN**
+*.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.218pF, R0=200ohm, Rn=17ohm, Icrit=0.1mA)
+
+
+*** netlist file ***
+**** **** **** **** **** **** **** ****+
+*** Lib : hstp_ttanaka_lib
+*** Cell: maj3_hstp033_energy
+*** View: schematic
+*** Dec  9 13:13:40 2021
+**** **** **** **** **** **** **** ****
+
+*** bfr
+.subckt bfr          1          2          3          4          5          6
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.450pH fcheck
+Lx                 5         6   7.400pH fcheck
+Lin                1         7   1.230pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lout              10         4  31.200pH fcheck
+Lq                 7         0   7.920pH fcheck
+R1                10         0   1.000pohm
+B2                 9         0  jjmod area=0.50
+B1                 8         0  jjmod area=0.50
+.ends
+
+*** sink
+.subckt sink          1          2          3          5          6
+***         a       din      dout       xin      xout
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Ld                 2         3   7.450pH fcheck
+Lx                 5         6   7.400pH fcheck
+Lin                1         7   1.230pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lq                 7         0   7.920pH fcheck
+B2                 9         0  jjmod area=0.50
+B1                 8         0  jjmod area=0.50
+.ends
+
+*** branch3
+.subckt branch3          1         11         12         13
+***         a         b         c         d
+Lip                9        13   0.312pH fcheck
+Lp3               12        14  11.800pH fcheck
+Lp2               11         9  10.200pH fcheck
+Lp1                1        15  11.800pH fcheck
+R0                15         9   1.000pohm
+R1                14         9   1.000pohm
+.ends
+
+*** maj_bbb
+.subckt maj_bbb          1         11         12          2          3          4          5          6
+***         a         b         c       din      dout         q       xin      xout
+XI3           branch3         16         17         18          4
+XI2               bfr         12         19          3         18         20          6
+XI1               bfr         11         21         19         17         22         20
+XI0               bfr          1          2         21         16          5         22
+.ends
+
+*** top cell: maj3_hstp033_energy
+XI24              bfr         23         24         25         26         27         28
+XI23              bfr         29         30         31         32          0         28
+*** ("33") mapped to 0
+XI21              bfr         26         24         31         29         34         35
+XI16              bfr         36         37         38         39         40         41
+XI15              bfr         42         43         37         44         45         40
+XI14              bfr         46         47         43         48         27         45
+XI12              bfr         49         50         38         36         51         52
+XI11              bfr         53         54         50         42         55         51
+XI10              bfr         56         57         54         46          8         55
+XI7               bfr         58         59         60         49         61         41
+XI6               bfr         62         63         59         53         64         61
+XI5               bfr         65         57         63         56         66         64
+XI3               bfr         67         68         60         58         69         52
+XI2               bfr         70         71         68         62         72         69
+XI1               bfr         73         74         71         65         75         72
+RAC2              76        66  100000.00ohm
+RDC               77        74  100000.00ohm
+RAC1              78        75  100000.00ohm
+R3                79        67  1000.00ohm
+R2                80        70  1000.00ohm
+R1                81        73  1000.00ohm
+VAC2              76         0  SIN(0 81000mV 320MEGHz 50ps 0)
+V6                77         0  PWL(0ps 0mv 20ps 113000mV)
+VAC1              78         0  SIN(0 81000mV 320MEGHz 100ps 0)
+V3                79         0  PWL(0ps 0mv 20ps -5mV)
+V2                80         0  PWL(0ps 0mv 20ps -5mV)
+V1                81         0  PWL(0ps 0mv 20ps -5mV)
+XI22             sink         32         30          0         34          0
+*** ("83" "82") mapped to 0
+XI20          maj_bbb         48         44         39         47         25         23          8         35
+
+*** netlist file ***
+.tran 0.1ps 16456.2ps 13331.2ps 
+
+
+*** jsim input file ***
+
+*** jsim input file ***
+.print devi RAC1
+.print nodev 75 0
+.print devi RAC2
+.print nodev 66 0 
+.print nodev 8 35 
+

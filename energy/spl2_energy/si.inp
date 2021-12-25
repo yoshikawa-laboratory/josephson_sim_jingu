@@ -1,0 +1,156 @@
+**** **** **** **** **** **** **** **** **** **** **** 
+*JSIM control file for CADENCE by kameda@cq.jp.nec.com
+**** **** **** **** **** **** **** **** **** **** ****
+
+*JSIM model
+**HSTP**
+.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.064pF, R0=100ohm, Rn=17ohm, Icrit=0.1mA)
+**OPEN**
+*.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.218pF, R0=200ohm, Rn=17ohm, Icrit=0.1mA)
+
+
+*** netlist file ***
+**** **** **** **** **** **** **** ****+
+*** Lib : hstp_ttanaka_lib
+*** Cell: spl2_energy
+*** View: schematic
+*** Dec 10 14:56:11 2021
+**** **** **** **** **** **** **** ****
+
+*** sink
+.subckt sink          1          2          3          4          5
+***         a       din      dout       xin      xout
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Ld                 2         3   7.450pH fcheck
+Lx                 4         5   7.400pH fcheck
+Lin                1         6   1.230pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lq                 6         0   7.920pH fcheck
+B2                 8         0  jjmod area=0.50
+B1                 7         0  jjmod area=0.50
+.ends
+
+*** bfr
+.subckt bfr          1          2          3          9          4          5
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.450pH fcheck
+Lx                 4         5   7.400pH fcheck
+Lin                1         6   1.230pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lout              10         9  31.200pH fcheck
+Lq                 6         0   7.920pH fcheck
+R1                10         0   1.000pohm
+B2                 8         0  jjmod area=0.50
+B1                 7         0  jjmod area=0.50
+.ends
+
+*** branch2
+.subckt branch2          1         11         12
+***         a         b         c
+Lip                8        12   0.282pH fcheck
+Lp2               11        13  11.000pH fcheck
+Lp1                1        14  11.000pH fcheck
+R0                14         8   1.000pohm
+R1                13         8   1.000pohm
+.ends
+
+*** bias_pair_10um
+.subckt bias_pair_10um          1         11         12         15
+***         a         b         c         d
+L1                12        15   3.730pH fcheck
+L0                 1        11   3.460pH fcheck
+C6                15         0   0.001pF
+C0                11         0   0.001pF
+.ends
+
+*** bfrL
+.subckt bfrL          1          2          3          9          4          5
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.135
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.192
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.135
+Kx1                Lx         L1 -0.187
+Kx2                Lx         L2 -0.187
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.430pH fcheck
+Lx                 4         5   7.380pH fcheck
+Lin                1         6   1.240pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lout              10         9  31.100pH fcheck
+Lq                 6         0   7.920pH fcheck
+R1                10         0   1.000pohm
+B2                 8         0  jjmod area=1.00
+B1                 7         0  jjmod area=1.00
+.ends
+
+*** spl2L
+.subckt spl2L          1          2          3         16          4          5         17
+***         a       din      dout         x       xin      xout         y
+XI1           branch2         16         17         18
+XI14       bias_pair_10um          4         19          2         20
+XI15       bias_pair_10um         21          5         22          3
+XI0              bfrL          1         20         22         18         19         21
+.ends
+
+*** top cell: spl2_energy
+XI20             sink         23         24          0         26          0
+*** ("25" "25") mapped to 0
+XI14             sink         27         28         24         29         26
+XI19              bfr         30         31         32         23         33         34
+XI18              bfr         35          7         32         30         36         37
+XI17              bfr         38         39         40         35         41         34
+XI15              bfr         42         28         31         27          0         33
+*** ("43") mapped to 0
+XI8               bfr         44         45          7         42         29         36
+XI7               bfr         46         45         39         44         47         41
+XI5               bfr         48         49         50         51         47         52
+XI3               bfr         53         54         50         48          6         55
+XI2               bfr         56         54         57         53         58         52
+XI13              bfr         59         60         57         56         61         55
+Vin               14         0  PWL(0ps 0mv 20ps 5mV))
+Vx2               62         0  SIN(0 81000mV 8000MEGHz 50ps 0)
+Vdc               63         0  PWL(0ps 0mv 20ps 113000mV)
+Vx1               64         0  SIN(0 81000mV 8000MEGHz 81.25ps 0)
+Rin               14        59  1000.00ohm
+Rx2               62        58  100000.00ohm
+Rdc               63        60  100000.00ohm
+Rx1               64        61  100000.00ohm
+XI6             spl2L         51         49         40         46          6         37         38
+
+*** netlist file ***
+.tran 0.1ps 1500ps
+*** jsim input file ***
+
+*** jsim input file ***
+*.FiLE 10101_8000.CSV
+.print devi Rx1
+.print nodev 61 0
+.print devi Rx2
+.print nodev 58 0 
+.print nodev 6 37
+*.print devi XI5_Lq
+*.print XI7_Lq
+*.print XI17_Lq

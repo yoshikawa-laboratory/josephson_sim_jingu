@@ -1,0 +1,315 @@
+**** **** **** **** **** **** **** **** **** **** **** 
+*JSIM control file for CADENCE by kameda@cq.jp.nec.com
+**** **** **** **** **** **** **** **** **** **** ****
+
+*JSIM model
+**HSTP**
+.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.064pF, R0=100ohm, Rn=17ohm, Icrit=0.1mA)
+**OPEN**
+*.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.218pF, R0=200ohm, Rn=17ohm, Icrit=0.1mA)
+
+
+*** netlist file ***
+**** **** **** **** **** **** **** ****+
+*** Lib : hstp_ttanaka_lib
+*** Cell: KoggeStoneAdder_8bit_Maj5
+*** View: schematic
+*** Dec 18 23:32:22 2021
+**** **** **** **** **** **** **** ****
+
+*** sink
+.subckt sink          1          2          3          4          5
+***         a       din      dout       xin      xout
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Ld                 2         3   7.450pH fcheck
+Lx                 4         5   7.400pH fcheck
+Lin                1         6   1.230pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lq                 6         0   7.920pH fcheck
+B2                 8         0  jjmod area=0.50
+B1                 7         0  jjmod area=0.50
+.ends
+
+*** branch3
+.subckt branch3          1          9         10         11
+***         a         b         c         d
+Lip                8        11   0.312pH fcheck
+Lp3               10        12  11.800pH fcheck
+Lp2                9         8  10.200pH fcheck
+Lp1                1        13  11.800pH fcheck
+R0                13         8   1.000pohm
+R1                12         8   1.000pohm
+.ends
+
+*** const0
+.subckt const0          2          3         14          4          5
+***       din      dout         q       xin      xout
+Kxout              Lx       Lout -0.000
+Kd1                Ld         L1 -0.128
+Kxq                Lx         Lq -0.004
+Kdout              Ld       Lout -0.000
+Kxd                Lx         Ld 0.193
+Kdq                Ld         Lq -0.005
+Kd2                Ld         L2 -0.135
+Kx1                Lx         L1 -0.185
+Kx2                Lx         L2 -0.189
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.490pH fcheck
+Lx                 4         5   7.470pH fcheck
+L1                 6         7   1.560pH fcheck
+L2                 8         6   1.660pH fcheck
+Lout              15        14  31.200pH fcheck
+Lq                 6         0   7.820pH fcheck
+R1                15         0   1.000pohm
+B2                 8         0  jjmod area=0.50
+B1                 7         0  jjmod area=0.50
+.ends
+
+*** const1
+.subckt const1          2          3         14          4          5
+***       din      dout         q       xin      xout
+L1                 4        16   0.010pH fcheck
+L2                17         5   0.010pH fcheck
+L3                 2        18   0.010pH fcheck
+L4                19         3   0.010pH fcheck
+XI0            const0         19         18         14         17         16
+.ends
+
+*** bfr
+.subckt bfr          1          2          3         14          4          5
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.450pH fcheck
+Lx                 4         5   7.400pH fcheck
+Lin                1         6   1.230pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lout              15        14  31.200pH fcheck
+Lq                 6         0   7.920pH fcheck
+R1                15         0   1.000pohm
+B2                 8         0  jjmod area=0.50
+B1                 7         0  jjmod area=0.50
+.ends
+
+*** or_bb
+.subckt or_bb          1          9          2          3         14          4          5
+***         a         b       din      dout         q       xin      xout
+XI3           branch3         16         20         21         14
+XI1            const1         22         23         20         24         25
+XI2               bfr          9         23          3         21         25          5
+XI0               bfr          1          2         22         16          4         24
+.ends
+
+*** inv
+.subckt inv          1          2          3         14          4          5
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout 0.432
+Ld                 2         3   7.440pH fcheck
+Lx                 4         5   7.390pH fcheck
+Lin                1         6   1.240pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lout              15        14  31.000pH fcheck
+Lq                 6         0   6.490pH fcheck
+R1                15         0   1.000pohm
+B2                 8         0  jjmod area=0.60
+B1                 7         0  jjmod area=0.60
+.ends
+
+*** and_ib
+.subckt and_ib          1          9          2          3         14          4          5
+***         a         b       din      dout         q       xin      xout
+XI2               bfr          9         23          3         21         25          5
+XI1            const0         26         23         20         24         25
+XI3           branch3         16         20         21         14
+XI0               inv          1          2         26         16          4         24
+.ends
+
+*** and_bi
+.subckt and_bi          1          9          2          3         14          4          5
+***         a         b       din      dout         q       xin      xout
+XI1            const0         20         23         26         24         25
+XI3           branch3         16         26         21         14
+XI2               inv          9         23          3         21         25          5
+XI0               bfr          1          2         20         16          4         24
+.ends
+
+*** and_bb
+.subckt and_bb          1          9          2          3         14          4          5
+***         a         b       din      dout         q       xin      xout
+XI3           branch3         16         27         21         14
+XI1            const0         20         23         27         24         25
+XI2               bfr          9         23          3         21         25          5
+XI0               bfr          1          2         20         16          4         24
+.ends
+
+*** bias_pair_10um
+.subckt bias_pair_10um          1          9         10         11
+***         a         b         c         d
+L1                10        11   3.730pH fcheck
+L0                 1         9   3.460pH fcheck
+C6                11         0   0.001pF
+C0                 9         0   0.001pF
+.ends
+
+*** bias_pair_20um
+.subckt bias_pair_20um          1          9         10         11
+***         a         b         c         d
+XI1        bias_pair_10um         28          9         29         11
+XI0        bias_pair_10um          1         28         10         29
+.ends
+
+*** bfrL
+.subckt bfrL          1          2          3         14          4          5
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.135
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.192
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.135
+Kx1                Lx         L1 -0.187
+Kx2                Lx         L2 -0.187
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.430pH fcheck
+Lx                 4         5   7.380pH fcheck
+Lin                1         6   1.240pH fcheck
+L1                 6         7   1.590pH fcheck
+L2                 8         6   1.590pH fcheck
+Lout              15        14  31.100pH fcheck
+Lq                 6         0   7.920pH fcheck
+R1                15         0   1.000pohm
+B2                 8         0  jjmod area=1.00
+B1                 7         0  jjmod area=1.00
+.ends
+
+*** spl3L
+.subckt spl3L          1          2          3         30          4          5         31         32
+***         a       din      dout         x       xin      xout         y         z
+XI14       bias_pair_20um          4         33          2         24
+XI15       bias_pair_20um         27          5         25          3
+XI0              bfrL          1         24         25         16         33         27
+XI1           branch3         30         31         32         16
+.ends
+
+*** risako_GP
+.subckt risako_GP         34         35          1         36         37         38         39         40         41         42         43          9         44         45         46         47         48         49         50         51
+***         G         P         a  ac_in<0>  ac_in<1>  ac_in<2>  ac_in<3> ac_out<0> ac_out<1> ac_out<2> ac_out<3>         b  dc_in<0>  dc_in<1>  dc_in<2>  dc_in<3> dc_out<0> dc_out<1> dc_out<2> dc_out<3>
+XI5             or_bb          6         52         53         44         35         54         36
+XI567             bfr         55         50         56         57         42         58
+XI6               bfr         59         48         53         34         40         54
+XI568             bfr         60         56         61         62         58         63
+XI569             bfr         64         61         65         66         63         67
+XI570             bfr         68         65         69         70         67         71
+XI579             bfr         72         69         73         74         71         75
+XI580             bfr         17         73         46         76         75         38
+XI116          and_ib         74         62         77         78          6          7         79
+XI115          and_bi         76         66         45         77         52         37          7
+XI117          and_bb         70         57         78         49         59         79         41
+XI1             spl3L          9         51         80         55         43         81         60         64
+XI0             spl3L          1         80         47         68         81         39         72         17
+.ends
+
+*** top cell: KoggeStoneAdder_8bit_Maj5
+XI892            sink         28         65         67         76         54
+XI898            sink         60         82         83         84         85
+XI889            sink         86         59         87         80         88
+XI886            sink         89         17         90         91         92
+XI887            sink         81         90         59         92         80
+XI901            sink         93         94         95         96         97
+XI899            sink         58         83         94         85         96
+XI896            sink         98         99         82        100         84
+XI885            sink        101        102         17        103         91
+XI884            sink        104        105        102        106        103
+XI905            sink        107        108          0        110          0
+*** ("109" "109") mapped to 0
+XI904            sink        111        112        108        113        110
+XI895            sink        114        115         99        116        100
+XI893            sink        117         67        115         54        116
+XI890            sink        118         87         65         88         76
+XI902            sink        119         95        112         97        113
+R33              120       121  100000.00ohm
+R23              122       123  100000.00ohm
+R35              124       125  100000.00ohm
+R24              126       127  100000.00ohm
+R30              128       129  100000.00ohm
+R26              130        56  100000.00ohm
+Rx1               62        52  100000.00ohm
+R34              131       132  100000.00ohm
+Rdc               70        66  100000.00ohm
+R29              133       134  100000.00ohm
+R36              135       136  100000.00ohm
+R37              137       138  100000.00ohm
+R25              139       140  100000.00ohm
+R28              141       142  100000.00ohm
+Rx2               74       143  100000.00ohm
+R0               144       145  100000.00ohm
+R31              146       147  100000.00ohm
+R32              148       149  100000.00ohm
+R27              150       151  100000.00ohm
+XI888       risako_GP         81         89        125        152        153        154        155        156        157        158        159        132        160        161         78        162         79        163        164        165
+XI900       risako_GP         58         60        151         73         68         53        166         69         61         72        167         56         75         64         77        168          7         63         71        169
+XI897       risako_GP         98        114        134        170        171        172        173         73         68         53        166        142        174        175        176        177         75         64         77        168
+XI883       risako_GP        101        104        138          0        106        143         52        152        153        154        155        136        105        179        179         66        160        161         78        162
+*** ("178") mapped to 0
+XI906       risako_GP        107        111        123        180        181        182        183        184        185        184        185        145        186        187        188        189        190        190        191        191
+XI891       risako_GP        118         86        121        156        157        158        159        192        193        194        195        149         79        163        164        165        196        197        198        199
+XI903       risako_GP        119         93        140         69         61         72        167        180        181        182        183        127          7         63         71        169        186        187        188        189
+XI894       risako_GP        117         28        147        192        193        194        195        170        171        172        173        129        196        197        198        199        174        175        176        177
+V35              148         0  PWL(0ps 0mv)
+V38              137         0  PWL(0ps 0mv)
+V36              124         0  PWL(0ps 0mv)
+V39              135         0  PWL(0ps 0mv)
+V30              133         0  PWL(0ps 0mv)
+V29              130         0  PWL(0ps 0mv)
+V28              150         0  PWL(0ps 0mv)
+V23               70         0  PWL(0ps 0mv 20ps 113000mV)
+V24              144         0  PWL(0ps 0mv)
+V22               74         0  SIN(0 90000mV 5000MEGHz 50ps 0)
+V37              131         0  PWL(0ps 0mv)
+V33              128         0  PWL(0ps 0mv)
+V31              141         0  PWL(0ps 0mv)
+V27              126         0  PWL(0ps 0mv)
+V34              120         0  PWL(0ps 0mv)
+V26              139         0  PWL(0ps 0mv)
+V21               62         0  SIN(0 90000mV 5000MEGHz 100ps 0)
+V25              122         0  PWL(0ps 0mv)
+V32              146         0  PWL(0ps 0mv)
+
+*** netlist file ***
+.tran 0.1ps 3000.2ps
+.print i(Rx1)
+.print i(Rx2)
+.print i(Rdc)
+.print i(Lq.XI884)
+.print i(Ld.XI884)
+.print i(Lx.XI884)
+*** jsim input file ***
+
+*** jsim input file ***
