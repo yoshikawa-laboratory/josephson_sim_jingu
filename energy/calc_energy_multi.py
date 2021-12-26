@@ -14,6 +14,7 @@ import time
 import logging
 from logging import getLogger, StreamHandler, Formatter
 from concurrent import futures
+import numpy as np
 
 ##description
 
@@ -25,6 +26,7 @@ def get_arg():
     parser.add_argument('-d','--dir',type=str, help='run_directory')
     parser.add_argument('-i','--input_filename',default='templete.inp',type=str, help='input_filename')
     parser.add_argument('-p','--parallel',default=0,type=int,help = 'Parallel run. Default is 0. Please use it carefully.')
+    parser.add_argument('-r','--random',default=0,type=int,help = 'Default is 0. ')
     return parser.parse_args()
 
 def dot (left:list, right:list)->Decimal:
@@ -101,11 +103,16 @@ def main()->None:
     #freqs = [8000,5000,4000,2000,1000,800,640,500,400,320,200,160,125,100]
     freqs = [8000,4000,2000,1000,500,400,320,200,100]
     future_result =[]
+    input_vects = []
+    if args.random == 0:
+        input_vects = range(int(2**args.input_num))
+    else:
+        input_vects = np.random.randint(args.random)*int(2**args.input_num)
     with futures.ThreadPoolExecutor(max_workers=5) as executor:
-        for i in range(int(2**args.input_num)):
-            # if(i==2):
-            #     break
-            input_vect = format(i,f'0{args.input_num}b')
+        for i,num in enumerate(input_vects):
+            if(i==5):
+                break
+            input_vect = format(num,f'0{args.input_num}b')
             for freq in freqs:
                 future = executor.submit(calc_energy,input_vect,freq)
                 future_result.append(future)
