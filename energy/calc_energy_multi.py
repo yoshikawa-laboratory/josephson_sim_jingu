@@ -65,10 +65,15 @@ def gene_netlist( input_filename:str,freq:int=5000, input:str= "11111",t_step:fl
 
 def get_energy(filename:str,t_step:float=0.1):
     df = None
-    if (args.sim =='jsim'):
-        df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=' ',header = None, index_col=0)
-    else : # expect josim
-        df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=',',header = None, index_col=0 ,skiprows =1)
+    try:
+        if (args.sim =='jsim'):
+            df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=' ',header = None, index_col=0)
+        else : # expect josim
+            df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=',',header = None, index_col=0 ,skiprows =1)
+    except:
+        logger.error(f'josim run error at {filename}')    
+        return [np.nan,np.nan] 
+
     if args.figure:
         df.plot(subplots=True)
         pyplot.savefig(filename+".png")
@@ -85,8 +90,8 @@ def calc_energy(input_vect:str,freq:int):
     filename = gene_netlist(args.input_filename, freq=freq,input= input_vect,t_step= 0.1)
     run_sim(filename)
     energy = get_energy(filename)
-    # os.remove(filename+".CSV")
-    # os.remove(filename+".inp")
+    os.remove(filename+".CSV")
+    os.remove(filename+".inp")
     return input_vect,freq,energy
 
 def run_sim(filename:str)->None:
@@ -107,11 +112,12 @@ def main()->None:
     if args.random == 0:
         input_vects = range(int(2**args.input_num))
     else:
-        input_vects = np.random.randint(args.random)*int(2**args.input_num)
-    with futures.ThreadPoolExecutor(max_workers=5) as executor:
+        input_vects = np.random.randint(0,int(2**args.input_num),args.random)
+        print(input_vects)
+    with futures.ThreadPoolExecutor(max_workers=20) as executor:
         for i,num in enumerate(input_vects):
-            if(i==5):
-                break
+            #if(i==5):
+            #    break
             input_vect = format(num,f'0{args.input_num}b')
             for freq in freqs:
                 future = executor.submit(calc_energy,input_vect,freq)
@@ -139,3 +145,4 @@ logger.addHandler(stream_handler)
 
 if __name__ == "__main__":
     main()
+q
