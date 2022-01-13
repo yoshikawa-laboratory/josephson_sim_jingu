@@ -114,7 +114,7 @@ def main()->None:
     else:
         input_vects = np.random.randint(0,int(2**args.input_num),args.random)
         print(input_vects)
-    with futures.ThreadPoolExecutor(max_workers=20) as executor:
+    with futures.ThreadPoolExecutor(max_workers=25) as executor:
         for i,num in enumerate(input_vects):
             #if(i==5):
             #    break
@@ -145,4 +145,3 @@ logger.addHandler(stream_handler)
 
 if __name__ == "__main__":
     main()
-q
