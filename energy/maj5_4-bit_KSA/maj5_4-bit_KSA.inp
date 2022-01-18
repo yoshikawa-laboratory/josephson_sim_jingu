@@ -1,0 +1,490 @@
+**** **** **** **** **** **** **** **** **** **** **** 
+*JSIM control file for CADENCE by kameda@cq.jp.nec.com
+**** **** **** **** **** **** **** **** **** **** ****
+
+*JSIM model
+**HSTP**
+.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.064pF, R0=100ohm, Rn=17ohm, Icrit=0.1mA)
+**OPEN**
+*.model jjmod jj(Rtype=1, Vg=2.8mV, Cap=0.218pF, R0=200ohm, Rn=17ohm, Icrit=0.1mA)
+
+
+*** netlist file ***
+**** **** **** **** **** **** **** ****+
+*** Lib : hstp_ttanaka_lib
+*** Cell: maj5_4_bit_KSA
+*** View: schematic
+*** Jan 17 14:51:24 2022
+**** **** **** **** **** **** **** ****
+
+*** bfr
+.subckt bfr          1          2          3          4          5          6
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.450pH fcheck
+Lx                 5         6   7.400pH fcheck
+Lin                1         7   1.230pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lout              10         4  31.200pH fcheck
+Lq                 7         0   7.920pH fcheck
+R1                10         0   1.000pohm
+B2                 9         0  jjmod area=0.50
+B1                 8         0  jjmod area=0.50
+.ends
+
+*** const0
+.subckt const0          2          3          4          5          6
+***       din      dout         q       xin      xout
+Kxout              Lx       Lout -0.000
+Kd1                Ld         L1 -0.128
+Kxq                Lx         Lq -0.004
+Kdout              Ld       Lout -0.000
+Kxd                Lx         Ld 0.193
+Kdq                Ld         Lq -0.005
+Kd2                Ld         L2 -0.135
+Kx1                Lx         L1 -0.185
+Kx2                Lx         L2 -0.189
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.490pH fcheck
+Lx                 5         6   7.470pH fcheck
+L1                 7         8   1.560pH fcheck
+L2                 9         7   1.660pH fcheck
+Lout              10         4  31.200pH fcheck
+Lq                 7         0   7.820pH fcheck
+R1                10         0   1.000pohm
+B2                 9         0  jjmod area=0.50
+B1                 8         0  jjmod area=0.50
+.ends
+
+*** branch3
+.subckt branch3          1         11         12         13
+***         a         b         c         d
+Lip                9        13   0.312pH fcheck
+Lp3               12        14  11.800pH fcheck
+Lp2               11         9  10.200pH fcheck
+Lp1                1        15  11.800pH fcheck
+R0                15         9   1.000pohm
+R1                14         9   1.000pohm
+.ends
+
+*** inv
+.subckt inv          1          2          3          4          5          6
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Kout               Lq       Lout 0.432
+Ld                 2         3   7.440pH fcheck
+Lx                 5         6   7.390pH fcheck
+Lin                1         7   1.240pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lout              10         4  31.000pH fcheck
+Lq                 7         0   6.490pH fcheck
+R1                10         0   1.000pohm
+B2                 9         0  jjmod area=0.60
+B1                 8         0  jjmod area=0.60
+.ends
+
+*** and_ib
+.subckt and_ib          1         11          2          3          4          5          6
+***         a         b       din      dout         q       xin      xout
+XI2               bfr         11         16          3         17         18          6
+XI1            const0         19         16         20         21         18
+XI3           branch3         22         20         17          4
+XI0               inv          1          2         19         22          5         21
+.ends
+
+*** bias_pair_10um
+.subckt bias_pair_10um          1         11         12         13
+***         a         b         c         d
+L1                12        13   3.730pH fcheck
+L0                 1        11   3.460pH fcheck
+*C6                13         0   0.001pF
+*C0                11         0   0.001pF
+.ends
+
+*** branch2
+.subckt branch2          1         11         12
+***         a         b         c
+Lip                9        12   0.282pH fcheck
+Lp2               11        14  11.000pH fcheck
+Lp1                1        15  11.000pH fcheck
+R0                15         9   1.000pohm
+R1                14         9   1.000pohm
+.ends
+
+*** spl2
+.subckt spl2          1          2          3         23          5          6         24
+***         a       din      dout         x       xin      xout         y
+XI0               bfr          1         21         18         22         25         26
+XI14       bias_pair_10um          5         25          2         21
+XI15       bias_pair_10um         26          6         18          3
+XI1           branch2         23         24         22
+.ends
+
+*** const1
+.subckt const1          2          3          4          5          6
+***       din      dout         q       xin      xout
+L1                 5        22   0.010pH fcheck
+L2                27         6   0.010pH fcheck
+L3                 2        28   0.010pH fcheck
+L4                29         3   0.010pH fcheck
+XI0            const0         29         28          4         27         22
+.ends
+
+*** or_bb
+.subckt or_bb          1         11          2          3          4          5          6
+***         a         b       din      dout         q       xin      xout
+XI3           branch3         22         20         17          4
+XI1            const1         30         16         20         21         18
+XI2               bfr         11         16          3         17         18          6
+XI0               bfr          1          2         30         22          5         21
+.ends
+
+*** and_bi
+.subckt and_bi          1         11          2          3          4          5          6
+***         a         b       din      dout         q       xin      xout
+XI1            const0         20         16         19         21         18
+XI3           branch3         22         19         17          4
+XI2               inv         11         16          3         17         18          6
+XI0               bfr          1          2         20         22          5         21
+.ends
+
+*** risako_SUM
+.subckt risako_SUM         31         32         33         34         35         36         37         38         39         40         41         42         43         44         45         46         47         48         49
+***     Carry         P  ac_in<0>  ac_in<1>  ac_in<2>  ac_in<3> ac_out<0> ac_out<1> ac_out<2> ac_out<3>  dc_in<0>  dc_in<1>  dc_in<2>  dc_in<3> dc_out<0> dc_out<1> dc_out<2> dc_out<3>       sum
+XI543          and_ib         50         51         46         52         53         38         54
+XI734             bfr         55         56         47         50         57         39
+XI733             bfr         58         59         56         60         27         57
+XI732             bfr         61         62         59         51         63         27
+XI731             bfr         64         43         62         65         35         63
+XI69             spl2         32         66         48         58         67         40         55
+XI68             spl2         31         44         66         64         36         67         61
+XI552           or_bb         68         53         41         45         49         33         37
+XI533          and_bi         60         65         52         42         68         54         34
+.ends
+
+*** bias_pair_20um
+.subckt bias_pair_20um          1         11         12         13
+***         a         b         c         d
+XI1        bias_pair_10um         51         11         69         13
+XI0        bias_pair_10um          1         51         12         69
+.ends
+
+*** spl3
+.subckt spl3          1          2          3         23          5          6         24         70
+***         a       din      dout         x       xin      xout         y         z
+XI0               bfr          1         21         18         22         25         26
+XI1           branch3         23         24         70         22
+XI14       bias_pair_20um          5         25          2         21
+XI15       bias_pair_20um         26          6         18          3
+.ends
+
+*** branch5to1_5
+.subckt branch5to1_5          1         11         12         13         71         72
+***         a         b         c         d         e         f
+L5                71        63  26.800pH fcheck
+L4                13        52  24.900pH fcheck
+L3                12        54  22.900pH fcheck
+L2                11        73  24.900pH fcheck
+L1                 1        50  26.700pH fcheck
+L0                54        72   0.665pH fcheck
+R3                63        52   1.000pohm
+R2                52        54   1.000pohm
+R1                54        73   1.000pohm
+R0                73        50   1.000pohm
+.ends
+
+*** maj_1bbbb_2_right
+.subckt maj_1bbbb_2_right          1         11         12         13          2          3          4          5          6
+***         a         b         c         d       din      dout         q       xin      xout
+XI9            const1         74          2         26         75          5
+XI2               bfr         12          9         30         76         18         14
+XI1               bfr         11         22          9         77         21         18
+XI0               bfr          1         74         22         19         75         21
+XI7               bfr         13         30          3         78         14          6
+XI8        branch5to1_5         26         19         77         76         78          4
+.ends
+
+*** and_bb
+.subckt and_bb          1         11          2          3          4          5          6
+***         a         b       din      dout         q       xin      xout
+XI3           branch3         22         26         17          4
+XI1            const0         20         16         26         21         18
+XI2               bfr         11         16          3         17         18          6
+XI0               bfr          1          2         20         22          5         21
+.ends
+
+*** sink
+.subckt sink          1          2          3          5          6
+***         a       din      dout       xin      xout
+Kd1                Ld         L1 -0.133
+Kxq                Lx         Lq 0.000
+Kxd                Lx         Ld 0.190
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.133
+Kx1                Lx         L1 -0.186
+Kx2                Lx         L2 -0.186
+Ld                 2         3   7.450pH fcheck
+Lx                 5         6   7.400pH fcheck
+Lin                1         7   1.230pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lq                 7         0   7.920pH fcheck
+B2                 9         0  jjmod area=0.50
+B1                 8         0  jjmod area=0.50
+.ends
+
+*** maj_1bbbb_2_left
+.subckt maj_1bbbb_2_left          1         11         12         13          2          3          4          5          6
+***         a         b         c         d       din      dout         q       xin      xout
+XI9            const1          2         74         26          5         75
+XI2               bfr         12          9         30         76         18         14
+XI1               bfr         11         22          9         77         21         18
+XI0               bfr          1         74         22         19         75         21
+XI7               bfr         13         30          3         78         14          6
+XI8        branch5to1_5         26         19         77         76         78          4
+.ends
+
+*** bfrL
+.subckt bfrL          1          2          3          4          5          6
+***         a       din      dout         q       xin      xout
+Kxout              Lx       Lout 0.000
+Kd1                Ld         L1 -0.135
+Kxq                Lx         Lq 0.000
+Kdout              Ld       Lout 0.000
+Kxd                Lx         Ld 0.192
+Kdq                Ld         Lq 0.000
+Kd2                Ld         L2 -0.135
+Kx1                Lx         L1 -0.187
+Kx2                Lx         L2 -0.187
+Kout               Lq       Lout -0.495
+Ld                 2         3   7.430pH fcheck
+Lx                 5         6   7.380pH fcheck
+Lin                1         7   1.240pH fcheck
+L1                 7         8   1.590pH fcheck
+L2                 9         7   1.590pH fcheck
+Lout              10         4  31.100pH fcheck
+Lq                 7         0   7.920pH fcheck
+R1                10         0   1.000pohm
+B2                 9         0  jjmod area=1.00
+B1                 8         0  jjmod area=1.00
+.ends
+
+*** spl3L
+.subckt spl3L          1          2          3         23          5          6         24         70
+***         a       din      dout         x       xin      xout         y         z
+XI14       bias_pair_20um          5         25          2         21
+XI15       bias_pair_20um         26          6         18          3
+XI0              bfrL          1         21         18         22         25         26
+XI1           branch3         23         24         70         22
+.ends
+
+*** risako_GP
+.subckt risako_GP         79         32          1         33         34         35         36         37         38         39         40         11         41         42         43         44         45         46         47         48
+***         G         P         a  ac_in<0>  ac_in<1>  ac_in<2>  ac_in<3> ac_out<0> ac_out<1> ac_out<2> ac_out<3>         b  dc_in<0>  dc_in<1>  dc_in<2>  dc_in<3> dc_out<0> dc_out<1> dc_out<2> dc_out<3>
+XI5             or_bb          7         80         45         66         32         37         81
+XI2               bfr         82         66         41         79         81         33
+XI567             bfr         83         47         84         85         39         86
+XI568             bfr         87         84         55         50         86         88
+XI569             bfr         89         55         63         59         88         53
+XI570             bfr         90         63         91         54         53         68
+XI579             bfr         92         91         93         67         68         94
+XI580             bfr         27         93         43         64         94         35
+XI116          and_ib         54         85         58         46          7          8         38
+XI115          and_bi         67         50         61         58         80         56          8
+XI117          and_bb         64         59         42         61         82         34         56
+XI1             spl3L         11         48         65         83         40         62         87         89
+XI0             spl3L          1         65         44         90         62         36         92         27
+.ends
+
+*** top cell: maj5_4_bit_KSA
+XI161      risako_SUM         95         96         97         98         99        100        101        102        103        104        105        106        107        108        109        109        110        110        111
+XI160      risako_SUM        112        113        114        115        116        117         97         98         99        100        118        119        120        121        105        106        107        108        122
+XI159      risako_SUM        123        124        125        126        127        128        114        115        116        117        129        130        131        132        118        119        120        121        133
+XI157      risako_SUM        134        135        136        137        138        139        125        126        127        128        140        141        142        143        129        130        131        132        144
+XI354             bfr        111        145        146        147        148        102
+XI352             bfr        147        149        146        150        151        101
+XI351             bfr        150        152        153        154        155          0
+*** ("156") mapped to 0
+XI350             bfr        122        157        145        158        159        148
+XI348             bfr        158        160        149        161        162        151
+XI347             bfr        161        163        152        164        165        155
+XI346             bfr        133        166        157        167        168        159
+XI344             bfr        167        169        160        170        171        162
+XI343             bfr        170        172        163        173        174        165
+XI342             bfr        144        175        166        176        177        168
+XI340             bfr        176        178        169        179        180        171
+XI339             bfr        179        181        172        182        183        174
+XI321             bfr        184        185        186        187        188        189
+XI320             bfr        190        191        192        184        193        194
+XI319             bfr        195        196        192        190        197        189
+XI318             bfr        187        198        186        199        200        194
+XI317             bfr        201        202        198        203        204        200
+XI316             bfr        205        206        196        207        208        197
+XI315             bfr        207        209        191        210        211        193
+XI314             bfr        210        212        185        201        213        188
+XI313             bfr        214        215        216        217        218        219
+XI312             bfr        217        220        221        222        223        224
+XI311             bfr        222        225        226        227        228        229
+XI310             bfr        227        230        231        232        233        234
+XI309             bfr        235        236        237        238        239        240
+XI308             bfr        241        242        243        244        245        246
+XI307             bfr        244        247        248        249        250        251
+XI306             bfr        249        252        253        235        254        255
+XI305             bfr        256        257        258        259        260        261
+XI304             bfr        262        263        264        265        266        267
+XI303             bfr        265        268        269        270        271        272
+XI302             bfr        270        268        273        256        274        275
+XI289             bfr        276        226        212        277        229        213
+XI288             bfr        278        221        209        276        224        211
+XI287             bfr        279        216        206        278        219        208
+XI286             bfr        277        231        202        280        234        204
+XI285             bfr        281        253        225        282        255        228
+XI284             bfr        283        248        220        281        251        223
+XI283             bfr        284        243        215        283        246        218
+XI282             bfr        282        237        230        285        240        233
+XI281             bfr        286        273        252        287        275        254
+XI280             bfr        288        269        247        286        272        250
+XI279             bfr        289        264        242        288        267        245
+XI278             bfr        287        258        236        290        261        239
+XI386             bfr        291        292        175        293        294        177
+XI382             bfr        295        292        140        291        296        136
+XI384             bfr        293        297        178        298        299        180
+XI217             bfr        300        301        302        123        303        304
+XI214             bfr        305        306        307        134        308        309
+XI199             bfr        310        311        312        300        313        314
+XI198             bfr        315        316        317        305        318        319
+XI193             bfr        320        321        322        310        323        324
+XI192             bfr        325        326        327        315        328        329
+XI383             bfr        298        297        181        330        294        183
+XI381             bfr        331        332        143        333        334        139
+XI174             bfr        335        336        337         95        338        339
+XI168             bfr        340        341        342        112        343        344
+XI173             bfr        345        346        347        335        348        104
+XI172             bfr        349        350        351        345        352        353
+XI171             bfr        354        355        351        349        356        357
+XI164             bfr        358        359        355        360        361        356
+XI163             bfr        362        363        364        340        365        366
+XI162             bfr        367        368        369        362        370        371
+XI150             bfr        372        342        336        113        344        338
+XI149             bfr        373        302        341        124        304        343
+XI120             bfr        374        375        346        372        376        348
+XI375             bfr        377        378        316        379        380        318
+XI380             bfr        333        381        142        382        296        138
+XI379             bfr        382        381        141        295        334        137
+XI378             bfr        383        384        311        385        386        313
+XI118             bfr        387        364        375        388        366        376
+XI377             bfr        389        390        321        383        391        323
+XI376             bfr        392        393        326        377        394        328
+XI373             bfr        395        396        384        397        398        386
+XI73              bfr        399        400        363        373        401        365
+XI71              bfr        402        312        400        403        314        401
+XI372             bfr        404        317        396        405        319        398
+XI371             bfr        406        407        378        408        409        380
+XI369             bfr        410        411        407        412        413        409
+XI52              bfr        414        415        359        367        416        361
+XI51              bfr        417        418        419        320        420        421
+XI50              bfr        422        423        424        325        425        426
+XI594             bfr        427        428        429        354        430        353
+XI139             bfr        431        432        429        427        433        357
+XI573             bfr        434        435        428        358        436        430
+XI572             bfr        437        438        435        439        440        436
+XI571             bfr        441        442        438        414        443        440
+XI574             bfr        444        445        442        446        447        443
+XI575             bfr        448        449        445        450        451        447
+XI576             bfr        452        453        449        454        455        451
+XI577             bfr        456        457        453        458        459        455
+XI578             bfr        460        461        457        462        463        459
+XI366             bfr        464        465        466        467        468        469
+XI599             bfr        470        471        472        473        474        475
+XI598             bfr        476        477        471        478        479        474
+XI597             bfr        480        481        477        482        483        479
+XI368             bfr        484        485        465        486        487        468
+XI365             bfr        488        466        489        490        469        491
+XI364             bfr        492        489        493        494        491        495
+XI362             bfr        496        493        481        422        495        483
+XI119            spl2        360        369        350        387        371        352        374
+XI374            spl2        497        327        390        404        329        391        395
+XI72             spl2        498        322        368        402        324        370        399
+XI370            spl2        499        411        393        410        500        394        406
+XI91             spl2        501        502        432        437        503        433        434
+XI367            spl2        504        505        506        484        507        508        464
+XI10             spl2        509        510        461        511        512        463        417
+XI9              spl2        513        472        510        514        475        512        515
+XI8              spl2        516        517        518        513        519        520        509
+XI158            spl3        521        522        502        448        523        503        444        441
+XI422            spl3        524        518        522        460        520        523        456        452
+XI427            spl3        525        526        517        480        527        519        476        470
+XI363            spl3        528        506        526        488        508        527        492        496
+XI110      maj_1bbbb_2_right        405        397        385        388        307        301        135        309        303
+XI109      maj_1bbbb_2_right        412        408        379        403        332        306        331        500        308
+XI24           and_bb        494        511        529        423        392        530        425
+XI777          and_bb        515        446        531        418        389        532        420
+XI387          const0        347        337         96        103        339
+XI353            sink        154        533        153        534          0
+*** ("156") mapped to 0
+XI349            sink        164        535        533        536        534
+XI345            sink        173        537        535        538        536
+XI341            sink        182        539        537        540        538
+XI385            sink        330          0        539        299        540
+*** ("541") mapped to 0
+V5                60         0  PWL(0ps 0mv 20ps -20mv)
+V4                54         0  PWL(0ps 0mv 20ps -20mv)
+V7                50         0  PWL(0ps 0mv 20ps -20mv)
+V3                 7         0  pulse(20mV -20mV 1000ps 1ps 1ps 1600ps 3200ps)
+V2                67         0  pulse(20mV -20mV 1000ps 1ps 1ps 800ps 1600ps)
+V6                82         0  PWL(0ps 0mv 20ps -20mv)
+V1                62         0  pulse(20mV -20mV 1000ps 1ps 1ps 400ps 800ps)
+V0                64         0  pulse(20mV -20mV 1000ps 1ps 1ps 200ps 400ps)
+VAC2              80         0  SIN(0 90000mV 5000MEGHz 50ps 0)
+VDC               59         0  PWL(0ps 0mv 20ps 113000mV)
+VAC1              61         0  SIN(0 90000mV 5000MEGHz 100ps 0)
+R7                50       262  1000ohm
+R4                54       205  1000ohm
+R3                 7       289  1000ohm
+R6                82       241  1000ohm
+R2                67       284  1000ohm
+R1                62       279  1000ohm
+R5                60       214  1000ohm
+R0                64       195  1000ohm
+R10               80       271  100000ohm
+R9                59       263  100000ohm
+R8                61       266  100000ohm
+XI45       maj_1bbbb_2_left        462        458        450        439        419        415        498        421        416
+XI31       maj_1bbbb_2_left        482        478        514        454        424        531        497        426        532
+XI29       maj_1bbbb_2_left        486        467        490        473        485        529        499        413        530
+XI7         risako_GP        501        431        203        542        543        544        545        546        547        546        547        199        548        549        550        551        552        552        553        553
+XI6         risako_GP        524        521        232        554        555        556        557        542        543        544        545        280        558        559        560        561        548        549        550        551
+XI5         risako_GP        525        516        238        562        563        564        565        554        555        556        557        285        566        567        568        569        558        559        560        561
+XI4         risako_GP        504        528        259        487        507        260        274        562        563        564        565        290        505         83         83        257        566        567        568        569
+
+*** netlist file ***
+.tran 0.2ps 10000.0ps
+*** jsim input file ***
+.file a.CSV
+.print i(R8)
+.print i(R10)
+.print i(R9)
+.print i(Lq|XI385)
+.print i(Lq|XI341)
+.print i(Lq|XI345)
+.print i(Lq|XI349)
+.print i(Lq|XI353)
