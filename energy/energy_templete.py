@@ -21,6 +21,7 @@ def get_arg():
     parser.add_argument('-d','--dir',type=str, help='run_directory')
     parser.add_argument('-i','--input_filename',default='templete.inp',type=str, help='input_filename')
     parser.add_argument('-p','--parallel',default=0,type=int,help = 'Parallel run. Default is 0. Please use it carefully.')
+    parser.add_argument('-e','--erase',action = 'store_false',help = 'Parallel run. Default is 0. Please use it carefully.'
     return parser.parse_args()
 
 def dot (left:list, right:list)->Decimal:
@@ -78,8 +79,9 @@ def freq_curve(input:str,freqs:list = [8000,5000,4000,2000,1000,800,640,500,400,
         run_sim(filename)
         ene_list.append((item,get_energy(filename)))
         # remove .CSV and .inp
-        os.remove(filename+".CSV")
-        os.remove(filename+".inp")
+        if args.dir :
+            os.remove(filename+".CSV")
+            os.remove(filename+".inp")
     return ene_list
 
 def run_sim(filename:str)->None:

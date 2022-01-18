@@ -130,8 +130,8 @@ B1                14         0  jjmod area=0.50
 ***         a         b         c         d
 L1                 3         4   3.730pH fcheck
 L0                 1         2   3.460pH fcheck
-C6                 4         0   0.001pF
-C0                 2         0   0.001pF
+*C6                 4         0   0.001pF
+*C0                 2         0   0.001pF
 .ends
 
 *** bias_pair_20um
@@ -485,10 +485,10 @@ V7               600         0  PWL(0ps 0mv  20ps {{input[7]}}V)
 .tran {{t_step}}ps {{end}}ps {{begin}}ps {{t_step}}ps
 *** jsim input file ***
 .FiLE {{out_file_name}}
-.print devi RAC1
+.print devi R8
 .print nodev 485 0
 
-.print devi RAC2
+.print devi R10
 .print nodev 516 0 
 
 .print nodev 492 333 
