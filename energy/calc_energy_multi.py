@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from readline import get_endidx
 from typing_extensions import ParamSpec
 from jinja2 import Template, Environment, FileSystemLoader
 import os
@@ -15,6 +16,7 @@ import logging
 from logging import getLogger, StreamHandler, Formatter
 from concurrent import futures
 import numpy as np
+import datetime
 
 ##description
 
@@ -44,7 +46,7 @@ def gene_netlist( input_filename:str,freq:int=5000, input:str= "11111",t_step:fl
     start_offset= 40
     period = round(10**6/freq,1) # piko sec
     input_v =[]
-    begin = period*10 +round(period/4 + start_offset,1)
+    begin = period*7 +round(period/4 + start_offset,1)
     end = begin + period# piko sec
     for item in input:
         if(item == '1'):
@@ -79,20 +81,19 @@ def get_energy(filename:str,t_step:float=0.1):
         pyplot.savefig(filename+".png")
         pyplot.clf()
         pyplot.close('all')
-    energy_ac1 = df[1].dot(df[2])*t_step*10**-12
-    energy_ac2 = df[3].dot(df[4])*t_step*10**-12
-    energy_ac1_DUT = (df[1].dot(df[5]))*t_step*10**-12
-    energy_ac2_DUT =0.0 if len(df.columns)<6 else (df[3].dot(df[6]))*t_step*10**-12
+    energy_ac1 = np.dot(df[1],df[2])*t_step*10**-12
+    energy_ac2 = np.dot(df[3],df[4])*t_step*10**-12
+    energy_ac1_DUT = np.dot(df[1],df[5])*t_step*10**-12
+    energy_ac2_DUT =0.0 if len(df.columns)<6 else np.dot(df[3],df[6])*t_step*10**-12
+    os.remove(filename+".CSV")
+    os.remove(filename+".inp")
     return [energy_ac1+energy_ac2,energy_ac1_DUT+energy_ac2_DUT]
 
 
-def calc_energy(input_vect:str,freq:int):
+def gene_run_sim(input_vect:str,freq:int)->list:
     filename = gene_netlist(args.input_filename, freq=freq,input= input_vect,t_step= 0.1)
     run_sim(filename)
-    energy = get_energy(filename)
-    os.remove(filename+".CSV")
-    os.remove(filename+".inp")
-    return input_vect,freq,energy
+    return input_vect,freq,filename
 
 def run_sim(filename:str)->None:
     logger.debug(f'run {filename}')
@@ -114,18 +115,23 @@ def main()->None:
     else:
         input_vects = np.random.randint(0,int(2**args.input_num),args.random)
         print(input_vects)
-    with futures.ThreadPoolExecutor(max_workers=25) as executor:
+    print("state 1")
+    with futures.ThreadPoolExecutor(max_workers=30) as executor:
         for i,num in enumerate(input_vects):
-            #if(i==5):
-            #    break
+            # if(i==50):
+            #     break
             input_vect = format(num,f'0{args.input_num}b')
             for freq in freqs:
-                future = executor.submit(calc_energy,input_vect,freq)
+                future = executor.submit(gene_run_sim,input_vect,freq)
                 future_result.append(future)
-    with open(f"energy_{args.sim}.csv",mode ='w') as f:
+    print("exporting simulation result")
+    time_stamp = datetime.datetime.fromtimestamp(time.time())
+    with open(f"energy_{args.sim}_{time_stamp.strftime('%m_%d_%H_%M_%S')}.csv",mode ='w') as f:
         for item in future_result:
             foo = item.result()
-            f.write(f'0b{foo[0]},{str(foo[1])},{foo[2][0]},{foo[2][1]}\n')
+            energy = get_energy(foo[2])
+            f.write(f'0b{foo[0]},{str(foo[1])},{energy[0]},{energy[1]}\n')
+    print("state 3")
     time_end = time.time()    
     print(f"Run time {time_end-time_begin} sec")
 
@@ -135,7 +141,7 @@ args = get_arg()
 
 ### log setting ### https://qiita.com/mimitaro/items/9fa7e054d60290d13bfc
 logger = getLogger("Run log")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 stream_handler = StreamHandler()
 stream_handler.setLevel(logging.DEBUG)
 handler_format = Formatter("[%(asctime)s - %(message)s]")
