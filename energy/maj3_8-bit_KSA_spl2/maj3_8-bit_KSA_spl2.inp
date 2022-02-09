@@ -708,25 +708,25 @@ XI1387     maj3_KSA_sum        495       1477       1478       1479       1480  
 XI1389     maj3_KSA_sum        468       1493       1494       1495       1496       1469       1470       1471       1472        461        723       1497       1498       1499       1500       1473       1474       1475       1476       1108
 XI1386     maj3_KSA_sum        502       1446       1447       1448       1449       1477       1478       1479       1480        499       1501       1454       1455       1456       1457       1485       1486       1487       1488       1225
 XI1388     maj3_KSA_sum        488       1481       1482       1483       1484       1493       1494       1495       1496        470        465       1489       1490       1491       1492       1497       1498       1499       1500       1208
-V18             1502         0  pulse(20mV -20mV 1000ps 1ps 1ps 400ps 800ps)
-V17             1503         0  PWL(0ps 0mv 20ps -20mV)
-V16             1504         0  pulse(20mV -20mV 1000ps 1ps 1ps 800ps 1600ps)
-V15             1505         0  PWL(0ps 0mv 20ps -20mV)
-V14             1506         0  pulse(20mV -20mV 1000ps 1ps 1ps 1600ps 3200ps)
-V13             1507         0  PWL(0ps 0mv 20ps -20mV)
-V12             1508         0  PWL(0ps 0mv 20ps -20mV)
-V11             1509         0  PWL(0ps 0mv 20ps -20mV)
-V10             1510         0  PWL(0ps 0mv 20ps -20mV)
-V9              1511         0  PWL(0ps 0mv 20ps -20mV)
-V8              1512         0  PWL(0ps 0mv 20ps -20mV)
-V7              1513         0  PWL(0ps 0mv 20ps -20mV)
-V6              1514         0  PWL(0ps 0mv 20ps -20mV)
-V5              1515         0  PWL(0ps 0mv 20ps -20mV)
-V4              1516         0  PWL(0ps 0mv 20ps -20mV)
-V3              1517         0  PWL(0ps 0mv 20ps -20mV)
-Vac2            1518         0  SIN(0 81000mV 5000MEGHz 50ps 0)
+V18             1502         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V17             1503         0  PWL(0ps 0mv 20ps {{input[8]}}V)
+V16             1504         0  PWL(0ps 0mv 20ps {{input[1]}}V)
+V15             1505         0  PWL(0ps 0mv 20ps {{input[9]}}V)
+V14             1506         0  PWL(0ps 0mv 20ps {{input[2]}}V)
+V13             1507         0  PWL(0ps 0mv 20ps {{input[10]}}V)
+V12             1508         0  PWL(0ps 0mv 20ps {{input[3]}}V)
+V11             1509         0  PWL(0ps 0mv 20ps {{input[11]}}V)
+V10             1510         0  PWL(0ps 0mv 20ps {{input[4]}}V)
+V9              1511         0  PWL(0ps 0mv 20ps {{input[12]}}V)
+V8              1512         0  PWL(0ps 0mv 20ps {{input[5]}}V)
+V7              1513         0  PWL(0ps 0mv 20ps {{input[13]}}V)
+V6              1514         0  PWL(0ps 0mv 20ps {{input[6]}}V)
+V5              1515         0  PWL(0ps 0mv 20ps {{input[14]}}V)
+V4              1516         0  PWL(0ps 0mv 20ps {{input[7]}}V)
+V3              1517         0  PWL(0ps 0mv 20ps {{input[15]}}V)
+Vac2            1518         0  SIN(0 81000mV {{freq}}MEGHz 40ps 0)
 Vdc             1519         0  PWL(0ps 0mv 20ps 113000mV)
-Vac1            1520         0  SIN(0 81000mV 5000MEGHz 100.0ps 0)
+Vac1            1520         0  SIN(0 81000mV {{freq}}MEGHz {{40+ period|int/4}}ps 0)
 R18             1502      1111  1000.00ohm
 R17             1503      1219  1000.00ohm
 R16             1504      1060  1000.00ohm
@@ -767,7 +767,7 @@ XI1043          or_bb       1366        611        869        154        595    
 *** netlist file ***
 .tran {{t_step}}ps {{end}}ps {{begin}}ps {{t_step}}ps
 *** jsim input file ***
-.FiLE {{out_file_name}}
+.FiLE hoge.csv
 *IAC1
 .print i(Rac1)
 *VAC1_total
