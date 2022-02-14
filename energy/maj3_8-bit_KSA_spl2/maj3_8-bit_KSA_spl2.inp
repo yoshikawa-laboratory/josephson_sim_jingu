@@ -767,7 +767,7 @@ XI1043          or_bb       1366        611        869        154        595    
 *** netlist file ***
 .tran {{t_step}}ps {{end}}ps {{begin}}ps {{t_step}}ps
 *** jsim input file ***
-.FiLE hoge.csv
+.FiLE {{out_file_name}} 
 *IAC1
 .print i(Rac1)
 *VAC1_total

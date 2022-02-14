@@ -1552,7 +1552,7 @@ VDC              120         0  PWL(0ps 0mv 20ps 113000mV)
 
 
 *** netlist file ***
-.tran 0.2ps 540000ps 1ps
+.tran 0.2ps 54000ps 1ps
 *** jsim input file ***
 
 *** jsim input file ***

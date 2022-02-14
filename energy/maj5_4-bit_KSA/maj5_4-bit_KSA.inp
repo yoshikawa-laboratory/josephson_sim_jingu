@@ -446,17 +446,17 @@ XI345            sink        173        537        535        538        536
 XI341            sink        182        539        537        540        538
 XI385            sink        330          0        539        299        540
 *** ("541") mapped to 0
-V5                60         0  PWL(0ps 0mv 20ps -20mv)
-V4                54         0  PWL(0ps 0mv 20ps -20mv)
-V7                50         0  PWL(0ps 0mv 20ps -20mv)
-V3                 7         0  pulse(20mV -20mV 1000ps 1ps 1ps 1600ps 3200ps)
-V2                67         0  pulse(20mV -20mV 1000ps 1ps 1ps 800ps 1600ps)
-V6                82         0  PWL(0ps 0mv 20ps -20mv)
-V1                62         0  pulse(20mV -20mV 1000ps 1ps 1ps 400ps 800ps)
-V0                64         0  pulse(20mV -20mV 1000ps 1ps 1ps 200ps 400ps)
-VAC2              80         0  SIN(0 90000mV 5000MEGHz 50ps 0)
+V5                60         0  PWL(0ps 0mv  20ps {{input[5]}}V)
+V4                54         0  PWL(0ps 0mv  20ps {{input[4]}}V)
+V7                50         0  PWL(0ps 0mv  20ps {{input[7]}}V)
+V3                 7         0  PWL(0ps 0mv  20ps {{input[3]}}V)
+V2                67         0  PWL(0ps 0mv  20ps {{input[2]}}V)
+V6                82         0  PWL(0ps 0mv  20ps {{input[6]}}V)
+V1                62         0  PWL(0ps 0mv  20ps {{input[1]}}V)
+V0                64         0  PWL(0ps 0mv  20ps {{input[0]}}V)
+VAC2              80         0  SIN(0 81000mV {{freq}}MEGHz 40ps 0)
 VDC               59         0  PWL(0ps 0mv 20ps 113000mV)
-VAC1              61         0  SIN(0 90000mV 5000MEGHz 100ps 0)
+VAC1              61         0  SIN(0 81000mV {{freq}}MEGHz {{40+ period|int/4}}ps 0)
 R7                50       262  1000ohm
 R4                54       205  1000ohm
 R3                 7       289  1000ohm
@@ -477,14 +477,15 @@ XI5         risako_GP        525        516        238        562        563    
 XI4         risako_GP        504        528        259        487        507        260        274        562        563        564        565        290        505         83         83        257        566        567        568        569
 
 *** netlist file ***
-.tran 0.2ps 10000.0ps
+.tran {{t_step}}ps {{end}}ps {{begin}}ps {{t_step}}ps
 *** jsim input file ***
-.file a.CSV
-.print i(R8)
-.print i(R10)
-.print i(R9)
-.print i(Lq|XI385)
-.print i(Lq|XI341)
-.print i(Lq|XI345)
-.print i(Lq|XI349)
-.print i(Lq|XI353)
+.FiLE {{out_file_name}}
+*ac1 total*
+.print devi R8
+.print nodev 266 0
+*ac2 total*
+.print devi R10
+.print nodev 271 0 
+
+.print nodev 274 102 
+.print nodev 260 101 

@@ -141,7 +141,7 @@ args = get_arg()
 
 ### log setting ### https://qiita.com/mimitaro/items/9fa7e054d60290d13bfc
 logger = getLogger("Run log")
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.DEBUG)
 stream_handler = StreamHandler()
 stream_handler.setLevel(logging.DEBUG)
 handler_format = Formatter("[%(asctime)s - %(message)s]")
