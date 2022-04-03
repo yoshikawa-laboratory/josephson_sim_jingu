@@ -1327,8 +1327,8 @@ XI1740         and_bb       3519       3520       3053       3521       3522    
 XI1725         and_bb       3524       3359       3100       3525       3526       3103       3527
 XI2095         and_bb       3093       2642       3528       3364       3260       3529       3365
 XI2094         and_bb       3077       2597       3361       3528       3421       3363       3529
-VAC1             121         0  SIN(0 81000mV 500MEGHz 1000ps 0)
-VAC2             123         0  SIN(0 81000mV 500MEGHz 500ps 0)
+VAC1             121         0  SIN(0 81000mV {{freq}}MEGHz {{40+ period|int/4}}ps 0)
+VAC2             123         0  SIN(0 81000mV {{freq}}MEGHz 40ps 0)
 XI1906        maj_bbb       3132       3137       3153       2530       2557       3530       2533       2560
 XI1893        maj_bbb       3173       3531       3127       2615       3459       3532       2617       3461
 XI1880        maj_bbb       3191       3533       3164       2701       3464       3534       2703       3466
@@ -1426,39 +1426,39 @@ XI1619          spl3L       3777       3911       3912       3311       3913    
 XI1611          spl3L       3785       3915       3916       3324       3917       3918       3329       3318
 XI1603          spl3L       3793       3919       3920       3337       3921       3922       3342       3331
 XI1594          spl3L       3802       3923       3919       3353       3924       3921       3357       3366
-V7                83         0  pulse(20mV -20mV 1000ps 1ps 1ps 200ps 400ps)
-V5                76         0  pulse(20mV -20mV 1000ps 1ps 1ps 400ps 800ps)
-V3                73         0  pulse(20mV -20mV 1000ps 1ps 1ps 204800ps 409600ps)
-V2                58         0  pulse(20mV -20mV 1000ps 1ps 1ps 409600ps 819200ps)
-V0                28         0  pulse(20mV -20mV 1000ps 1ps 1ps 819200ps 1638400ps)
-V15               17         0  pulse(20mV -20mV 1000ps 1ps 1ps 3276800ps 6553600ps)
-V23               57         0  pulse(20mV -20mV 1000ps 1ps 1ps 13107200ps 262144ps)
-V14               60         0  pulse(20mV -20mV 1000ps 1ps 1ps 262144ps 524288ps)
-V12                7         0  pulse(20mV -20mV 1000ps 1ps 1ps 800ps 1600ps)
-V10               72         0  pulse(20mV -20mV 1000ps 1ps 1ps 1600ps 3200ps)
-V9                74         0  pulse(20mV -20mV 1000ps 1ps 1ps 3200ps 6400ps)
-V13               99         0  pulse(20mV -20mV 1000ps 1ps 1ps 6400ps 12800ps)
-V6                65         0  pulse(20mV -20mV 1000ps 1ps 1ps 12800ps 25600ps)
-V4                68         0  pulse(20mV -20mV 1000ps 1ps 1ps 25600ps 51200ps)
-V1                55         0  pulse(20mV -20mV 1000ps 1ps 1ps 51200ps 102400ps)
-V11               77         0  pulse(20mV -20mV 1000ps 1ps 1ps 102400ps 204800ps)
-V8                78         0  PWL(0ps 0mv 20ps -20mV)
-V22               67         0  PWL(0ps 0mv 20ps -20mV)
-V31               86         0  PWL(0ps 0mv 20ps -20mV)
-V30               53         0  PWL(0ps 0mv 20ps -20mV)
-V29               79         0  PWL(0ps 0mv 20ps -20mV)
-V17               75         0  PWL(0ps 0mv 20ps -20mV)
-V21               62         0  PWL(0ps 0mv 20ps -20mV)
-V18               52         0  PWL(0ps 0mv 20ps -20mV)
-V16               70         0  PWL(0ps 0mv 20ps -20mV)
-V20               69         0  PWL(0ps 0mv 20ps -20mV)
+V7                83         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V5                76         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V3                73         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V2                58         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V0                28         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V15               17         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V23               57         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V14               60         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V12                7         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V10               72         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V9                74         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V13               99         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V6                65         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V4                68         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V1                55         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V11               77         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V8                78         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V22               67         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V31               86         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V30               53         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V29               79         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V17               75         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V21               62         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V18               52         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V16               70         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V20               69         0  PWL(0ps 0mv 20ps {{input[0]}}V)
 VDC              120         0  PWL(0ps 0mv 20ps 113000mV)
-V28                8         0  PWL(0ps 0mv 20ps -20mV)
-V27               66         0  PWL(0ps 0mv 20ps -20mV)
-V26               56         0  PWL(0ps 0mv 20ps -20mV)
-V25               54         0  PWL(0ps 0mv 20ps -20mV)
-V24               81         0  PWL(0ps 0mv 20ps -20mV)
-V19               59         0  PWL(0ps 0mv 20ps -20mV)
+V28                8         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V27               66         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V26               56         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V25               54         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V24               81         0  PWL(0ps 0mv 20ps {{input[0]}}V)
+V19               59         0  PWL(0ps 0mv 20ps {{input[0]}}V)
 XI2782           spl2       1018        710        722        704        713        724        698
 XI2687           spl2       3387        951        939        991        954        941        995
 XI2684           spl2       3389        947        928        999        948        930        996
@@ -1549,8 +1549,8 @@ XI1600           spl2       3794       3920       3915       3985       3922    
 XI1598           spl2       3801       3345       3923       3344       3117       3924       3349
 
 *** netlist file ***
-.tran 0.2ps 4000ps 1ps
-.File hoge.csv
+.tran {{t_step}}ps {{end}}ps {{begin}}ps {{t_step}}ps
+.FILE {{out_file_name}}
 *** jsim input file ***
 *.print i(R32)
 *.print i(R34)
