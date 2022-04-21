@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from readline import get_endidx
+from tkinter import E
+from typing import Tuple
 from typing_extensions import ParamSpec
 from jinja2 import Template, Environment, FileSystemLoader
 import os
@@ -18,6 +20,8 @@ from concurrent import futures
 import numpy as np
 import datetime
 
+from collections import deque
+
 ##description
 
 def get_arg():
@@ -29,6 +33,7 @@ def get_arg():
     parser.add_argument('-i','--input_filename',default='templete.inp',type=str, help='input_filename')
     parser.add_argument('-p','--parallel',default=0,type=int,help = 'Parallel run. Default is 0. Please use it carefully.')
     parser.add_argument('-r','--random',default=0,type=int,help = 'Default is 0. ')
+    parser.add_argument('-q','--equation',default='equation.txt',type=str, help='equation it should calclulate')
     return parser.parse_args()
 
 def dot (left:list, right:list)->Decimal:
@@ -70,6 +75,7 @@ def get_energy(filename:str,t_step:float=0.1):
     try:
         if (args.sim =='jsim'):
             df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=' ',header = None, index_col=0)
+            df.pop(df.columns[-1])
         else : # expect josim
             df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=',',header = None, index_col=0 ,skiprows =1)
     except:
@@ -81,16 +87,35 @@ def get_energy(filename:str,t_step:float=0.1):
         pyplot.savefig(filename+".png")
         pyplot.clf()
         pyplot.close('all')
-    energy_ac1 = np.dot(df[1],df[2])*t_step*10**-12
-    energy_ac2 = np.dot(df[3],df[4])*t_step*10**-12
-    energy_ac1_DUT = np.dot(df[1],df[5])*t_step*10**-12
-    energy_ac2_DUT =0.0 if len(df.columns)<6 else np.dot(df[3],df[6])*t_step*10**-12
+    values = eval_equations(df,t_step)
     os.remove(filename+".CSV")
     os.remove(filename+".inp")
-    return [energy_ac1+energy_ac2,energy_ac1_DUT+energy_ac2_DUT]
+    return values
+
+def eval_equations(df : pd.DataFrame,t_step):
+    result = []
+    d = deque()
+    with open(args.equation) as f:
+        for line in f.readlines():
+            for i,v in enumerate( line.split()):
+                if(v =="*"):
+                    num = (np.dot(d.pop(),d.pop())*t_step*10**-12 )
+                    d.append(num)
+                elif(v =="+"):
+                    num = d.pop()+d.pop()
+                    d.append(num)
+                elif(v == "-"):
+                    num = d.pop()-d.pop()
+                    d.append(num)
+                else:
+                    d.append(df[int(v)])
+            result.append(d.pop())
+
+    return result
+        
 
 
-def gene_run_sim(input_vect:str,freq:int)->list:
+def gene_run_sim(input_vect:str,freq:int)->Tuple[str, int, str]:
     filename = gene_netlist(args.input_filename, freq=freq,input= input_vect,t_step= 0.1)
     run_sim(filename)
     return input_vect,freq,filename
@@ -114,9 +139,9 @@ def main()->None:
         input_vects = range(int(2**args.input_num))
     else:
         input_vects = np.random.randint(0,int(2**args.input_num),args.random)
-        print(input_vects)
-    print("state 1")
-    with futures.ThreadPoolExecutor(max_workers=30) as executor:
+        logging.info(input_vects)
+    logging.info("state 1")
+    with futures.ThreadPoolExecutor(max_workers=4) as executor:
         for i,num in enumerate(input_vects):
             # if(i==50):
             #     break
@@ -124,16 +149,17 @@ def main()->None:
             for freq in freqs:
                 future = executor.submit(gene_run_sim,input_vect,freq)
                 future_result.append(future)
-    print("exporting simulation result")
+    logging.info("exporting simulation result")
     time_stamp = datetime.datetime.fromtimestamp(time.time())
     with open(f"energy_{args.sim}_{time_stamp.strftime('%m_%d_%H_%M_%S')}.csv",mode ='w') as f:
         for item in future_result:
             foo = item.result()
             energy = get_energy(foo[2])
-            f.write(f'0b{foo[0]},{str(foo[1])},{energy[0]},{energy[1]}\n')
-    print("state 3")
+            energy_str = ",".join([str(x) for x in energy])
+            f.write(f'0b{foo[0]},{str(foo[1])},{energy_str}\n')
+    logging.info("state 3")
     time_end = time.time()    
-    print(f"Run time {time_end-time_begin} sec")
+    logging.info(f"Run time {time_end-time_begin} sec")
 
 
 #### grobal parameter ####

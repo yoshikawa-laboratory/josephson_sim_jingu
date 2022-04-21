@@ -123,9 +123,41 @@ XI20          maj_bbb         48         44         39         47         25    
 
 *** jsim input file ***
 {{sim}}.FiLE {{out_file_name}}
-.print devi RAC1
-.print nodev 75 0
-.print devi RAC2
-.print nodev 66 0 
-.print nodev 8 35 
+* .print devi RAC1
+* .print nodev 75 0
+* .print devi RAC2
+* .print nodev 66 0 
+* .print nodev 8 35 
 
+.print v(8.XI10)
+.print v(9.XI10)
+
+.print v(8.XI11)
+.print v(9.XI11)
+
+.print v(8.XI12)
+.print v(9.XI12)
+
+.print v(8.XI14)
+.print v(9.XI14)
+
+.print v(8.XI15)
+.print v(9.XI15)
+
+.print v(8.XI16)
+.print v(9.XI16)
+
+.print v(8.XI0.XI20)
+.print v(9.XI0.XI20)
+
+.print v(8.XI1.XI20)
+.print v(9.XI1.XI20)
+
+.print v(8.XI2.XI20)
+.print v(9.XI2.XI20)
+
+.print v(8.XI24)
+.print v(9.XI24)
+
+.print v(8.XI21)
+.print v(9.XI21)
