@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from readline import get_endidx
-from tkinter import E
 from typing import Tuple
 from typing_extensions import ParamSpec
 from jinja2 import Template, Environment, FileSystemLoader
