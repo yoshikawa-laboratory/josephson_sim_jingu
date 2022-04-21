@@ -197,17 +197,17 @@ XI22             sink         44         42          0         46          0
 .print v(8.XI10.XI20)
 .print v(9.XI10.XI20)
 
-.print v(8.XI10.XI0)
-.print v(9.XI10.XI0)
+.print v(8.XI0.XI20)
+.print v(9.XI0.XI20)
 
-.print v(8.XI10.XI1)
-.print v(9.XI10.XI1)
+.print v(8.XI1.XI20)
+.print v(9.XI1.XI20)
 
-.print v(8.XI10.XI2)
-.print v(9.XI10.XI2)
+.print v(8.XI2.XI20)
+.print v(9.XI2.XI20)
 
-.print v(8.XI10.XI7)
-.print v(9.XI10.XI7)
+.print v(8.XI7.XI20)
+.print v(9.XI7.XI20)
 
 .print v(8.XI24)
 .print v(9.XI24)
