@@ -122,7 +122,7 @@ XI20          maj_bbb         48         44         39         47         25    
 *** jsim input file ***
 
 *** jsim input file ***
-{{sim}}.FiLE {{out_file_name}}
+.FiLE {{out_file_name}}
 * .print devi RAC1
 * .print nodev 75 0
 * .print devi RAC2

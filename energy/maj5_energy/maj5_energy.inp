@@ -143,74 +143,74 @@ XI22             sink         44         42          0         46          0
 
 *** jsim input file ***
 .FiLE {{out_file_name}}
-* .print devi RAC1
-* .print nodev 96 0
-* .print devi RAC2
-* .print nodev 75 0 
-* .print nodev 49 47 
+.print devi RAC1
+.print nodev 96 0
+.print devi RAC2
+.print nodev 75 0 
+.print nodev 49 47 
 
-.print v(8.XI9)
-.print v(9.XI9)
+* .print v(8.XI9)
+* .print v(9.XI9)
 
-.print v(8.XI5)
-.print v(9.XI5)
+* .print v(8.XI5)
+* .print v(9.XI5)
 
-.print v(8.XI6)
-.print v(9.XI6)
+* .print v(8.XI6)
+* .print v(9.XI6)
 
-.print v(8.XI7)
-.print v(9.XI7)
+* .print v(8.XI7)
+* .print v(9.XI7)
 
-.print v(8.XI8)
-.print v(9.XI8)
+* .print v(8.XI8)
+* .print v(9.XI8)
 
-.print v(8.XI19)
-.print v(9.XI19)
+* .print v(8.XI19)
+* .print v(9.XI19)
 
-.print v(8.XI10)
-.print v(9.XI10)
+* .print v(8.XI10)
+* .print v(9.XI10)
 
-.print v(8.XI11)
-.print v(9.XI11)
+* .print v(8.XI11)
+* .print v(9.XI11)
 
-.print v(8.XI12)
-.print v(9.XI12)
+* .print v(8.XI12)
+* .print v(9.XI12)
 
-.print v(8.XI13)
-.print v(9.XI13)
+* .print v(8.XI13)
+* .print v(9.XI13)
 
-.print v(8.XI18)
-.print v(9.XI18)
+* .print v(8.XI18)
+* .print v(9.XI18)
 
-.print v(8.XI14)
-.print v(9.XI14)
+* .print v(8.XI14)
+* .print v(9.XI14)
 
-.print v(8.XI15)
-.print v(9.XI15)
+* .print v(8.XI15)
+* .print v(9.XI15)
 
-.print v(8.XI16)
-.print v(9.XI16)
+* .print v(8.XI16)
+* .print v(9.XI16)
 
-.print v(8.XI17)
-.print v(9.XI17)
+* .print v(8.XI17)
+* .print v(9.XI17)
 
-.print v(8.XI10.XI20)
-.print v(9.XI10.XI20)
+* .print v(8.XI10.XI20)
+* .print v(9.XI10.XI20)
 
-.print v(8.XI0.XI20)
-.print v(9.XI0.XI20)
+* .print v(8.XI0.XI20)
+* .print v(9.XI0.XI20)
 
-.print v(8.XI1.XI20)
-.print v(9.XI1.XI20)
+* .print v(8.XI1.XI20)
+* .print v(9.XI1.XI20)
 
-.print v(8.XI2.XI20)
-.print v(9.XI2.XI20)
+* .print v(8.XI2.XI20)
+* .print v(9.XI2.XI20)
 
-.print v(8.XI7.XI20)
-.print v(9.XI7.XI20)
+* .print v(8.XI7.XI20)
+* .print v(9.XI7.XI20)
 
-.print v(8.XI24)
-.print v(9.XI24)
+* .print v(8.XI24)
+* .print v(9.XI24)
 
-.print v(8.XI21)
-.print v(9.XI21)
+* .print v(8.XI21)
+* .print v(9.XI21)
