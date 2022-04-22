@@ -102,8 +102,8 @@ L2                 8         6   1.590pH fcheck
 Lout              10         9  31.200pH fcheck
 Lq                 6         0   7.920pH fcheck
 R1                10         0   1.000pohm
-B2                 8         0  jjmod area=0.50
-B1                 7         0  jjmod area=0.50
+B2                 8         0  jjmod area=1.00
+B1                 7         0  jjmod area=1.00
 .ends
 
 *** spl2L
