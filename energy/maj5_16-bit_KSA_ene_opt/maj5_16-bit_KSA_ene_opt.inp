@@ -1,0 +1,1242 @@
+.model             jjmod                    jj(Rtype=1,  Vg=2.8mV,    Cap=0.064pF,  R0=100ohm,  Rn=17ohm,      Icrit=0.1mA)
+
+
+.subckt            and_bb                   1            2            3             4           12             13              14
+*inst name         cell_name                a            b            din           dout        q              xin             xout
+XI0                bfr                      1            3            8             9           13             5
+XI2                bfr                      2            11           4             10          7              14
+XI3                branch3                  9            6            10            12
+XI1                const0                   8            11           6             5           7
+.ends
+
+
+.subckt            and_bi                   1            2            3             4           12             13              14
+*inst name         cell_name                a            b            din           dout        q              xin             xout
+XI0                bfr                      1            3            8             9           13             5
+XI3                branch3                  9            7            10            12
+XI1                const0                   8            11           7             5           6
+XI2                inv                      2            11           4             10          6              14
+.ends
+
+
+.subckt            and_ib                   1            2            3             4           12             13              14
+*inst name         cell_name                a            b            din           dout        q              xin             xout
+XI2                bfr                      2            11           4             10          6              14
+XI3                branch3                  9            8            10            12
+XI1                const0                   7            11           8             5           6
+XI0                inv                      1            3            7             9           13             5
+.ends
+
+
+.subckt            bfr                      1            2            3             12          13             14
+*inst name         cell_name                a            din          dout          q           xin            xout
+B1                 9                        0            jjmod        area=0.5
+B2                 5                        0            jjmod        area=0.5
+Kd1                Ld                       L1           -0.133
+Kd2                Ld                       L2           -0.133
+Kdout              Ld                       Lout         0.0
+Kdq                Ld                       Lq           0.0
+Kout               Lq                       Lout         -0.495
+Kx1                Lx                       L1           -0.186
+Kx2                Lx                       L2           -0.186
+Kxd                Lx                       Ld           0.19
+Kxout              Lx                       Lout         0.0
+Kxq                Lx                       Lq           0.0
+L1                 8                        9            1.59pH
+L2                 5                        8            1.59pH
+Ld                 2                        3            7.45pH
+Lin                1                        8            1.23pH
+Lout               6                        12           31.2pH
+Lq                 8                        0            7.92pH
+Lx                 13                       14           7.4pH
+R1                 6                        0            1e-12ohm
+.ends
+
+
+.subckt            bfrL                     1            2            3             12          13             14
+*inst name         cell_name                a            din          dout          q           xin            xout
+B1                 9                        0            jjmod        area=1.0
+B2                 5                        0            jjmod        area=1.0
+Kd1                Ld                       L1           -0.135
+Kd2                Ld                       L2           -0.135
+Kdout              Ld                       Lout         0.0
+Kdq                Ld                       Lq           0.0
+Kout               Lq                       Lout         -0.495
+Kx1                Lx                       L1           -0.187
+Kx2                Lx                       L2           -0.187
+Kxd                Lx                       Ld           0.192
+Kxout              Lx                       Lout         0.0
+Kxq                Lx                       Lq           0.0
+L1                 8                        9            1.59pH
+L2                 5                        8            1.59pH
+Ld                 2                        3            7.43pH
+Lin                1                        8            1.24pH
+Lout               6                        12           31.1pH
+Lq                 8                        0            7.92pH
+Lx                 13                       14           7.38pH
+R1                 6                        0            1e-12ohm
+.ends
+
+
+.subckt            bias_pair_10um           1            2            3             4
+*inst name         cell_name                a            b            c             d
+*C0                 2                        0            0.00145pF
+*C6                 4                        0            0.00144pF
+L0                 1                        2            3.46pH
+L1                 3                        4            3.73pH
+.ends
+
+
+.subckt            bias_pair_20um           1            2            3             4
+*inst name         cell_name                a            b            c             d
+XI0                bias_pair_10um           1            6            3             5
+XI1                bias_pair_10um           6            2            5             4
+.ends
+
+
+.subckt            branch2                  1            2            3
+*inst name         cell_name                a            b            c
+Lip                6                        3            0.282pH
+Lp1                1                        5            11.0pH
+Lp2                2                        4            11.0pH
+R0                 5                        6            1e-12ohm
+R1                 4                        6            1e-12ohm
+.ends
+
+
+.subckt            branch3                  1            2            3             4
+*inst name         cell_name                a            b            c             d
+Lip                7                        4            0.312pH
+Lp1                1                        6            11.8pH
+Lp2                2                        7            10.2pH
+Lp3                3                        5            11.8pH
+R0                 6                        7            1e-12ohm
+R1                 5                        7            1e-12ohm
+.ends
+
+
+.subckt            const0                   1            2            11            12          13
+*inst name         cell_name                din          dout         q             xin         xout
+B1                 8                        0            jjmod        area=0.5
+B2                 4                        0            jjmod        area=0.5
+Kd1                Ld                       L1           -0.128
+Kd2                Ld                       L2           -0.135
+Kdout              Ld                       Lout         -0.000253
+Kdq                Ld                       Lq           -0.00468
+Kout               Lq                       Lout         -0.495
+Kx1                Lx                       L1           -0.185
+Kx2                Lx                       L2           -0.189
+Kxd                Lx                       Ld           0.193
+Kxout              Lx                       Lout         -7.94e-05
+Kxq                Lx                       Lq           -0.00421
+L1                 7                        8            1.56pH
+L2                 4                        7            1.66pH
+Ld                 1                        2            7.49pH
+Lout               5                        11           31.2pH
+Lq                 7                        0            7.82pH
+Lx                 12                       13           7.47pH
+R1                 5                        0            1e-12ohm
+.ends
+
+
+.subckt            const1                   1            2            7             8           9
+*inst name         cell_name                din          dout         q             xin         xout
+L1                 8                        4            0.01pH
+L2                 6                        9            0.01pH
+L3                 1                        3            0.01pH
+L4                 5                        2            0.01pH
+XI0                const0                   5            3            7             6           4
+.ends
+
+
+.subckt            inv                      1            2            3             12          13             14
+*inst name         cell_name                a            din          dout          q           xin            xout
+B1                 9                        0            jjmod        area=0.6
+B2                 5                        0            jjmod        area=0.6
+Kd1                Ld                       L1           -0.133
+Kd2                Ld                       L2           -0.133
+Kdout              Ld                       Lout         0.0
+Kdq                Ld                       Lq           0.0
+Kout               Lq                       Lout         0.432
+Kx1                Lx                       L1           -0.186
+Kx2                Lx                       L2           -0.186
+Kxd                Lx                       Ld           0.19
+Kxout              Lx                       Lout         0.0
+Kxq                Lx                       Lq           0.0
+L1                 8                        9            1.59pH
+L2                 5                        8            1.59pH
+Ld                 2                        3            7.44pH
+Lin                1                        8            1.24pH
+Lout               6                        12           31.0pH
+Lq                 8                        0            6.49pH
+Lx                 13                       14           7.39pH
+R1                 6                        0            1e-12ohm
+.ends
+
+
+.subckt            or_bb                    1            2            3             4           12             13              14
+*inst name         cell_name                a            b            din           dout        q              xin             xout
+XI0                bfr                      1            3            8             9           13             5
+XI2                bfr                      2            11           4             10          6              14
+XI3                branch3                  9            7            10            12
+XI1                const1                   8            11           7             5           6
+.ends
+
+
+.subckt            sink                     1            2            3             10          11
+*inst name         cell_name                a            din          dout          xin         xout
+B1                 8                        0            jjmod        area=0.5
+B2                 5                        0            jjmod        area=0.5
+Kd1                Ld                       L1           -0.133
+Kd2                Ld                       L2           -0.133
+Kdq                Ld                       Lq           0.0
+Kx1                Lx                       L1           -0.186
+Kx2                Lx                       L2           -0.186
+Kxd                Lx                       Ld           0.19
+Kxq                Lx                       Lq           0.0
+L1                 7                        8            1.59pH
+L2                 5                        7            1.59pH
+Ld                 2                        3            7.45pH
+Lin                1                        7            1.23pH
+Lq                 7                        0            7.92pH
+Lx                 10                       11           7.4pH
+.ends
+
+
+.subckt            spl2                     1            2            3             9           10             11              12
+*inst name         cell_name                a            din          dout          x           xin            xout            y
+XI0                bfr                      1            4            6             7           8              5
+XI14               bias_pair_10um           10           8            2             4
+XI15               bias_pair_10um           5            11           6             3
+XI1                branch2                  9            12           7
+.ends
+
+
+.subckt            spl3L                    1            2            3             9           10             11              12                13
+*inst name         cell_name                a            din          dout          x           xin            xout            y                 z
+XI0                bfrL                     1            4            6             7           8              5
+XI14               bias_pair_20um           10           8            2             4
+XI15               bias_pair_20um           5            11           6             3
+XI1                branch3                  9            12           13            7
+.ends
+
+
+.subckt            maj_1bbbb_2_left         1            2            3             4           5              6               20                21         22
+*inst name         cell_name                a            b            c             d           din            dout            q                 xin        xout
+XI0                bfr                      1            19           17            10          11             7
+XI1                bfr                      2            17           18            13          7              9
+XI2                bfr                      3            18           12            15          9              16
+XI7                bfr                      4            12           6             14          16             22
+XI8                branch5to1_5             8            10           13            15          14             20
+XI9                const1                   5            19           8             21          11
+.ends
+
+
+.subckt            maj_1bbbb_2_right        1            2            3             4           5              6               20                21         22
+*inst name         cell_name                a            b            c             d           din            dout            q                 xin        xout
+XI0                bfr                      1            19           17            10          11             7
+XI1                bfr                      2            17           18            13          7              9
+XI2                bfr                      3            18           12            15          9              16
+XI7                bfr                      4            12           6             14          16             22
+XI8                branch5to1_5             8            10           13            15          14             20
+XI9                const1                   19           5            8             11          21
+.ends
+
+
+.subckt            risako_GP_ene_opt        1            2            3             4           5              6               7                 8          9          10        11        12         13         14         15         16
+*inst name         cell_name                G            P            a             ac_in<0>    ac_in<1>       ac_in<2>        ac_out<0>         ac_out<1>  ac_out<2>  b         dc_in<0>  dc_in<1>   dc_in<2>   dc_out<0>  dc_out<1>  dc_out<2>
+XI117              and_bb                   31           28           27            12          20             26              5
+XI116              and_bi                   30           33           15            23          25             8               29
+XI115              and_ib                   24           32           23            27          17             29              26
+XI2                bfr                      20           21           11            1           22             4
+XI5                or_bb                    17           25           21            14          2              22              7
+XI0                spl3L                    3            19           13            33          18             6               32                28
+XI1                spl3L                    10           16           19            30          9              18              24                31
+.ends
+
+
+.subckt            risako_SUM_ene_opt       1            2            3             4           5              6               7                 8          9          10        11        12         13         14         25
+*inst name         cell_name                Carry        P            ac_in<0>      ac_in<1>    ac_in<2>       ac_out<0>       ac_out<1>         ac_out<2>  dc_in<0>   dc_in<1>  dc_in<2>  dc_out<0>  dc_out<1>  dc_out<2>  sum
+XI533              and_bi                   23           15           20            10          19             17              4
+XI543              and_ib                   21           22           13            20          24             7               17
+XI552              or_bb                    19           24           9             12          25             3               6
+XI0                spl2                     1            11           18            15          5              16              22
+XI1                spl2                     2            18           14            23          16             8               21
+.ends
+
+
+.subckt            branch5to1_5             1            2            3             4           5              6
+*inst name         cell_name                a            b            c             d           e              f
+L0                 8                        6            0.665pH
+L1                 1                        10           26.7pH
+L2                 2                        7            24.9pH
+L3                 3                        8            22.9pH
+L4                 4                        9            24.9pH
+L5                 5                        11           26.8pH
+R0                 7                        10           1e-12ohm
+R1                 8                        7            1e-12ohm
+R2                 9                        8            1e-12ohm
+R3                 11                       9            1e-12ohm
+.ends
+
+
+*this is top cell  maj5_16_bit_KSA_ene_opt
+R0                 1894                     494          1000.0ohm
+R1                 2016                     414          1000.0ohm
+R10                2336                     1630         1000.0ohm
+R11                2436                     1365         1000.0ohm
+R12                182                      2983         1000.0ohm
+R13                148                      1124         1000.0ohm
+R14                772                      1775         1000.0ohm
+R15                815                      1727         1000.0ohm
+R16                822                      555          1000.0ohm
+R17                830                      461          1000.0ohm
+R18                837                      274          1000.0ohm
+R19                869                      2763         1000.0ohm
+R2                 2027                     74           1000.0ohm
+R20                876                      2967         1000.0ohm
+R21                884                      1047         1000.0ohm
+R22                899                      824          1000.0ohm
+R23                909                      1312         1000.0ohm
+R24                919                      1780         1000.0ohm
+R25                929                      1729         1000.0ohm
+R26                935                      1678         1000.0ohm
+R27                946                      1443         1000.0ohm
+R28                957                      2609         1000.0ohm
+R29                1199                     1101         1000.0ohm
+R3                 2096                     2914         1000.0ohm
+R30                1416                     1297         1000.0ohm
+R31                1465                     1672         1000.0ohm
+R33                2714                     26           100000.0ohm
+R4                 2175                     7            1000.0ohm
+R5                 2221                     1126         1000.0ohm
+R6                 2223                     1160         1000.0ohm
+R7                 2315                     1790         1000.0ohm
+R8                 2320                     1751         1000.0ohm
+R9                 2329                     1710         1000.0ohm
+Rac1               2686                     3016         100000.0ohm
+Rac2               2947                     3019         100000.0ohm
+V0                 1894                     0            PWL          (0ps          0mv         20ps           {{input[21]}})
+V1                 2016                     0            PWL          (0ps          0mv         20ps           {{input[23]}})
+V10                2336                     0            PWL          (0ps          0mv         20ps           {{input[18]}})
+V11                2436                     0            PWL          (0ps          0mv         20ps           {{input[20]}})
+V12                182                      0            PWL          (0ps          0mv         20ps           {{input[0]}})
+V13                148                      0            PWL          (0ps          0mv         20ps           {{input[2]}})
+V14                772                      0            PWL          (0ps          0mv         20ps           {{input[4]}})
+V15                815                      0            PWL          (0ps          0mv         20ps           {{input[6]}})
+V16                822                      0            PWL          (0ps          0mv         20ps           {{input[22]}})
+V17                830                      0            PWL          (0ps          0mv         20ps           {{input[24]}})
+V18                837                      0            PWL          (0ps          0mv         20ps           {{input[26]}})
+V19                869                      0            PWL          (0ps          0mv         20ps           {{input[28]}})
+V2                 2027                     0            PWL          (0ps          0mv         20ps           {{input[25]}})
+V20                876                      0            PWL          (0ps          0mv         20ps           {{input[30]}})
+V21                884                      0            PWL          (0ps          0mv         20ps           {{input[9]}})
+V22                899                      0            PWL          (0ps          0mv         20ps           {{input[11]}})
+V23                909                      0            PWL          (0ps          0mv         20ps           {{input[13]}})
+V24                919                      0            PWL          (0ps          0mv         20ps           {{input[15]}})
+V25                929                      0            PWL          (0ps          0mv         20ps           {{input[17]}})
+V26                935                      0            PWL          (0ps          0mv         20ps           {{input[19]}})
+V27                946                      0            PWL          (0ps          0mv         20ps           {{input[8]}})
+V28                957                      0            PWL          (0ps          0mv         20ps           {{input[1]}})
+V29                1199                     0            PWL          (0ps          0mv         20ps           {{input[3]}})
+V3                 2096                     0            PWL          (0ps          0mv         20ps           {{input[27]}})
+V30                1416                     0            PWL          (0ps          0mv         20ps           {{input[5]}})
+V31                1465                     0            PWL          (0ps          0mv         20ps           {{input[7]}})
+V4                 2175                     0            PWL          (0ps          0mv         20ps           {{input[29]}})
+V5                 2221                     0            PWL          (0ps          0mv         20ps           {{input[31]}})
+V6                 2223                     0            PWL          (0ps          0mv         20ps           {{input[10]}})
+V7                 2315                     0            PWL          (0ps          0mv         20ps           {{input[12]}})
+V8                 2320                     0            PWL          (0ps          0mv         20ps           {{input[14]}})
+V9                 2329                     0            PWL          (0ps          0mv         20ps           {{input[16]}})
+VDC                2714                     0            PWL          (0ps          0mv         20ps           113000mV)
+VAC1               2686                     0            SIN          (0            81000mV     {{freq}}MEGHz  {{40+           period|int/4}}ps  0)
+VAC2               2947                     0            SIN          SIN(0         81000mV     {{freq}}MEGHz  40ps            0)
+XI24               and_bb                   1821         617          1359          1901        2197           1260            1876
+XI26               and_bb                   2430         1769         2558          1847        1995           2527            1831
+XI28               and_bb                   2431         1786         2725          1871        2514           2723            1867
+XI30               and_bb                   1797         637          2731          1920        2511           2730            1913
+XI33               and_bb                   500          3003         2845          1708        2622           2846            1697
+XI35               and_bb                   404          561          2848          1749        2632           2847            1733
+XI387              and_bb                   1527         162          1145          1557        1347           1138            1547
+XI389              and_bb                   1631         447          1575          1341        1355           1567            1340
+XI39               and_bb                   552          381          2861          1676        2580           2859            1641
+XI476              and_bb                   1290         595          1041          1377        1243           1034            1337
+XI487              and_bb                   1328         755          1487          1256        1251           1456            1255
+XI500              and_bb                   722          1536         1125          1509        1318           1118            1498
+XI513              and_bb                   374          2417         2950          367         1000           2762            345
+XI526              and_bb                   450          2420         98            421         1033           820             409
+XI539              and_bb                   508          2422         661           470         1056           252             459
+XI552              and_bb                   568          2424         302           557         1086           285             542
+XI565              and_bb                   1060         2426         662           1053        1116           656             1012
+XI600              and_bb                   108          672          1117          1140        1146           1113            1139
+XI613              and_bb                   2966         520          1150          1164        1170           1129            1163
+XI629              and_bb                   54           622          1219          1189        1200           1212            1188
+XI639              and_bb                   2907         1004         2899          787         796            2812            786
+XI649              and_bb                   52           2792         3000          813         324            2979            812
+XI662              and_bb                   173          2906         80            833         839            72              832
+XI672              and_bb                   227          2917         209           859         318            183             858
+XI682              and_bb                   333          163          322           879         270            311             878
+XI700              and_bb                   739          2595         914           911         913            915             910
+XI715              and_bb                   757          2928         941           926         940            942             925
+XI725              and_bb                   762          2356         958           954         956            959             953
+XI735              and_bb                   742          2574         974           971         973            975             970
+XI777              and_bb                   1760         2432         2748          1993        2043           2747            1931
+XI875              and_bb                   1206         724          432           2154        454            431             2090
+XI889              and_bb                   728          1259         501           2471        486            502             2395
+XI902              and_bb                   294          2            524           2599        535            523             2589
+XI915              and_bb                   2804         736          572           2724        585            570             2716
+XI1000             bfr                      296          875          298           728         874            297
+XI1001             bfr                      301          298          1660          655         297            1659
+XI1004             bfr                      1356         2214         313           2029        2213           312
+XI1006             bfr                      308          313          1680          2595        312            1679
+XI1007             bfr                      319          382          863           758         380            862
+XI1008             bfr                      320          863          384           2928        862            383
+XI1010             bfr                      790          2047         792           777         2046           791
+XI1012             bfr                      797          792          361           2356        791            360
+XI1013             bfr                      326          328          368           2574        327            366
+XI1015             bfr                      325          1717         328           329         1716           327
+XI1017             bfr                      916          1932         1721          745         1930           1722
+XI1019             bfr                      943          2834         2853          1562        2831           2837
+XI1021             bfr                      960          2855         2858          1576        2854           2856
+XI1023             bfr                      977          2866         2871          1592        2865           2870
+XI1025             bfr                      481          2873         2875          1607        2872           2874
+XI1027             bfr                      495          2883         2886          1621        2877           2885
+XI1029             bfr                      547          2888         2891          1632        2887           2889
+XI1031             bfr                      589          2896         1747          1645        2895           1746
+XI1032             bfr                      2619         1753         1750          393         1752           1748
+XI1033             bfr                      2605         1762         1758          705         1759           1757
+XI1034             bfr                      1791         2351         2624          294         2350           2309
+XI1036             bfr                      2954         2624         2260          398         2309           2259
+XI1037             bfr                      399          2353         665           2804        2352           657
+XI1039             bfr                      1646         665          1770          405         657            1768
+XI1044             bfr                      625          2294         2310          2464        2293           2308
+XI1045             bfr                      2689         2307         2305          1105        2306           2304
+XI1046             bfr                      2648         2303         2301          2035        2302           2300
+XI1047             bfr                      2643         2299         2296          2412        2297           2295
+XI1048             bfr                      987          1059         1057          2497        1058           1055
+XI1049             bfr                      633          1069         1065          1082        1068           1064
+XI1050             bfr                      639          1080         1077          2357        1079           1076
+XI1051             bfr                      249          1088         2041          2418        1087           630
+XI1052             bfr                      644          1077         1088          2571        1076           1087
+XI1053             bfr                      968          1747         2294          2457        1746           2293
+XI1054             bfr                      638          1065         1080          1236        1064           1079
+XI1055             bfr                      988          1057         1069          2373        1055           1068
+XI1056             bfr                      984          2296         1059          2448        2295           1058
+XI1057             bfr                      407          2301         2299          2582        2300           2297
+XI1058             bfr                      411          2305         2303          1207        2304           2302
+XI1059             bfr                      669          2310         2307          2386        2308           2306
+XI1060             bfr                      1652         506          2089          1541        505            2088
+XI1062             bfr                      2075         2545         132           968         2544           129
+XI1063             bfr                      2128         2541         1442          669         2540           1428
+XI1065             bfr                      1661         219          1997          1551        218            1996
+XI1066             bfr                      1119         2025         1122          1599        2024           1121
+XI1068             bfr                      1120         1122         191           1598        1121           190
+XI1069             bfr                      650          652          208           1613        651            207
+XI1071             bfr                      649          1997         652           1614        1996           651
+XI1072             bfr                      2059         412          642           1627        410            635
+XI1074             bfr                      2055         642          217           1626        635            216
+XI1075             bfr                      2053         606          214           1637        605            213
+XI1077             bfr                      602          2019         606           1638        2018           605
+XI1078             bfr                      1767         191          189           1601        190            188
+XI1079             bfr                      454          196          193           2583        195            192
+XI1080             bfr                      486          203          199           2051        200            197
+XI1081             bfr                      845          208          206           1616        207            205
+XI1082             bfr                      2072         217          239           1629        216            238
+XI1083             bfr                      535          225          242           1029        224            241
+XI1084             bfr                      585          2028         248           2073        2026           247
+XI1085             bfr                      995          214          255           1640        213            254
+XI1102             bfr                      985          1934         2012          567         2078           2010
+XI1103             bfr                      567          621          2007          579         1936           2006
+XI1104             bfr                      579          621          2013          594         3014           2014
+XI112              bfr                      2143         2333         2166          3003        2332           2155
+XI1123             bfr                      1585         2220         1319          821         3018           1317
+XI1124             bfr                      1619         1354         1353          1585        3015           1352
+XI1125             bfr                      1653         1354         1367          1619        3019           1366
+XI1126             bfr                      1672         26           1382          1653        3016           1381
+XI1127             bfr                      1689         1319         1462          730         1317           1439
+XI1128             bfr                      1704         1353         1552          1689        1352           1550
+XI1129             bfr                      1720         1367         2150          1704        1366           2149
+XI1130             bfr                      1727         1382         2162          1720        1381           2161
+XI1131             bfr                      1736         1462         1570          2798        1439           1569
+XI1132             bfr                      1745         1570         2084          2797        1569           2083
+XI1133             bfr                      1763         1584         1187          1745        1582           1185
+XI1134             bfr                      1775         2160         2038          1778        2159           2037
+XI1135             bfr                      1778         2148         2031          1763        2147           2030
+XI1136             bfr                      1264         1552         1584          1736        1550           1582
+XI1137             bfr                      1213         2150         2148          1264        2149           2147
+XI1138             bfr                      1297         2162         2160          1213        2161           2159
+XI1139             bfr                      2186         2084         1999          1528        2083           1998
+XI114              bfr                      2204         2166         2249          560         2155           2248
+XI1140             bfr                      853          1999         1837          1526        1998           1835
+XI1141             bfr                      2596         1184         1801          853         1179           1799
+XI1142             bfr                      1124         284          1782          2587        279            1781
+XI1143             bfr                      2587         1669         2819          2596        1668           2818
+XI1144             bfr                      2071         1187         1184          2186        1185           1179
+XI1145             bfr                      1030         2031         1669          2071        2030           1668
+XI1146             bfr                      1101         2038         284           1030        2037           279
+XI1147             bfr                      2933         1837         3004          1493        1835           3002
+XI1148             bfr                      2965         3004         1843          1492        3002           1839
+XI1149             bfr                      2911         2977         1814          2965        2976           1810
+XI115              bfr                      2050         2328         2082          561         2327           2080
+XI1150             bfr                      2983         2929         1826          2905        2927           1825
+XI1151             bfr                      2905         2943         1793          2911        2942           1792
+XI1152             bfr                      2713         1801         2977          2933        1799           2976
+XI1153             bfr                      2614         2819         2943          2713        2818           2942
+XI1154             bfr                      2609         1782         2929          2614        1781           2927
+XI1155             bfr                      1417         1843         1304          1505        1839           1303
+XI1156             bfr                      1561         1304         1300          1504        1303           1299
+XI1157             bfr                      1386         1295         1306          1561        1292           1305
+XI1158             bfr                      1365         1282         1280          1368        1281           1278
+XI1159             bfr                      1368         1287         1285          1386        1286           1284
+XI1160             bfr                      1389         1814         1295          1417        1810           1292
+XI1161             bfr                      1419         1793         1287          1389        1792           1286
+XI1162             bfr                      1443         1826         1282          1419        1825           1281
+XI1163             bfr                      1461         1300         1298          1516        1299           1296
+XI1164             bfr                      1583         1298         1322          1515        1296           1320
+XI1165             bfr                      1574         1316         1314          1583        1315           1310
+XI1166             bfr                      1630         1362         1360          1605        1361           1357
+XI1167             bfr                      1605         1327         1325          1574        1326           1324
+XI1168             bfr                      1647         1306         1316          1461        1305           1315
+XI1169             bfr                      1642         1285         1327          1647        1284           1326
+XI117              bfr                      2054         2082         2256          2990        2080           2252
+XI1170             bfr                      1678         1280         1362          1642        1278           1361
+XI1171             bfr                      1662         1322         1380          1525        1320           1379
+XI1172             bfr                      1687         1380         1542          1524        1379           1540
+XI1173             bfr                      1683         1438         1390          1687        1392           1388
+XI1174             bfr                      1710         1558         1554          1699        1555           1553
+XI1175             bfr                      1699         1548         1544          1683        1546           1543
+XI1176             bfr                      1719         1314         1438          1662        1310           1392
+XI1177             bfr                      1715         1325         1548          1719        1324           1546
+XI1178             bfr                      1729         1360         1558          1715        1357           1555
+XI1179             bfr                      1724         1542         1560          1537        1540           1559
+XI118              bfr                      2085         1644         2087          558         1643           2086
+XI1180             bfr                      1734         1560         1573          1535        1559           1572
+XI1181             bfr                      1730         1568         2156          1734        1565           2153
+XI1182             bfr                      1751         1581         2167          1742        1580           2165
+XI1183             bfr                      1742         1579         2146          1730        1577           2145
+XI1184             bfr                      1761         1390         1568          1724        1388           1565
+XI1185             bfr                      1756         1544         1579          1761        1543           1577
+XI1186             bfr                      1780         1554         1581          1756        1553           1580
+XI1187             bfr                      1291         1573         1588          1473        1572           1587
+XI1188             bfr                      1787         1588         2158          1472        1587           2157
+XI1189             bfr                      1783         2152         1978          1787        2151           1976
+XI1190             bfr                      1790         2164         1991          1789        2163           1990
+XI1191             bfr                      1789         2144         1982          1783        2142           1980
+XI1192             bfr                      1210         2156         2152          1291        2153           2151
+XI1193             bfr                      1208         2146         2144          1210        2145           2142
+XI1194             bfr                      1312         2167         2164          1208        2165           2163
+XI1195             bfr                      810          2158         2017          1803        2157           2015
+XI1196             bfr                      894          2017         230           2980        2015           229
+XI1197             bfr                      868          168          237           894         167            234
+XI1198             bfr                      1160         1989         2033          865         1986           2032
+XI1199             bfr                      865          181          1293          868         180            1202
+XI120              bfr                      2135         2087         1664          562         2086           1663
+XI1200             bfr                      804          1978         168           810         1976           167
+XI1201             bfr                      814          1982         181           804         1980           180
+XI1202             bfr                      824          1991         1989          814         1990           1986
+XI1203             bfr                      1114         230          2045          17          229            2044
+XI1204             bfr                      2585         2045         2036          2985        2044           2034
+XI1205             bfr                      2243         1602         1591          2585        1593           1571
+XI1206             bfr                      1126         273          1819          1127        272            1818
+XI1207             bfr                      1127         1198         1809          2243        1197           1805
+XI1208             bfr                      2224         237          1602          1114        234            1593
+XI1209             bfr                      2194         1293         1198          2224        1202           1197
+XI1210             bfr                      1047         2033         273           2194        2032           272
+XI1211             bfr                      1075         2036         1832          2662        2034           1830
+XI1212             bfr                      2989         1832         2998          2993        1830           2997
+XI1213             bfr                      25           233          1785          2989        232            1784
+XI1214             bfr                      7            2995         2949          15          2994           2948
+XI1215             bfr                      15           2982         2939          25          2981           2938
+XI1216             bfr                      2953         1591         233           1075        1571           232
+XI1217             bfr                      2937         1809         2982          2953        1805           2981
+XI1218             bfr                      2967         1819         2995          2937        1818           2994
+XI1219             bfr                      2635         2998         2960          2768        2997           2959
+XI1220             bfr                      2864         2960         2958          2999        2959           2957
+XI1221             bfr                      2884         2934         2964          2864        2932           2962
+XI1222             bfr                      2914         2946         2972          2916        2945           2970
+XI1223             bfr                      2916         2936         2975          2884        2935           2973
+XI1224             bfr                      2620         1785         2934          2635        1784           2932
+XI1225             bfr                      2653         2939         2936          2620        2938           2935
+XI1226             bfr                      2763         2949         2946          2653        2948           2945
+XI1227             bfr                      2832         2958         2956          2851        2957           2955
+XI1228             bfr                      43           2956         3010          3006        2955           3009
+XI1229             bfr                      55           6            3013          43          4              3011
+XI1230             bfr                      74           16           9             175         10             8
+XI1231             bfr                      175          24           19            55          21             18
+XI1232             bfr                      235          2964         6             2832        2962           4
+XI1233             bfr                      246          2975         24            235         2973           21
+XI1234             bfr                      274          2972         16            246         2970           10
+XI1235             bfr                      291          3010         29            44          3009           27
+XI1236             bfr                      305          29           36            3012        27             34
+XI1237             bfr                      379          40           38            305         39             37
+XI1238             bfr                      414          51           48            423         49             46
+XI1239             bfr                      423          60           58            379         59             57
+XI1240             bfr                      438          3013         40            291         3011           39
+XI1241             bfr                      449          19           60            438         18             59
+XI1242             bfr                      461          9            51            449         8              49
+XI1243             bfr                      471          36           65            41          34             64
+XI1244             bfr                      476          65           70            31          64             67
+XI1245             bfr                      483          83           70            476         78             71
+XI1246             bfr                      494          96           84            527         92             71
+XI1247             bfr                      527          103          84            483         101            67
+XI1248             bfr                      537          38           83            471         37             78
+XI1249             bfr                      553          58           103           537         57             101
+XI1250             bfr                      555          48           96            553         46             92
+XI1259             bfr                      563          105          619           582         104            3017
+XI1260             bfr                      582          112          109           587         111            110
+XI1261             bfr                      587          114          109           593         113            0
+XI1263             bfr                      541          107          105           569         106            104
+XI1264             bfr                      569          120          112           616         119            111
+XI1265             bfr                      616          1732         114           647         344            113
+XI1267             bfr                      521          3            107           659         3007           106
+XI1268             bfr                      659          1269         120           744         1248           119
+XI1269             bfr                      744          1665         1732          1795        1586           344
+XI1271             bfr                      488          1862         3             1802        1788           3007
+XI1272             bfr                      1802         1984         1269          1807        1964           1248
+XI1273             bfr                      1807         2104         1665          1812        2091           1586
+XI1275             bfr                      460          2123         1862          1820        2120           1788
+XI1276             bfr                      1820         2182         1984          1823        2171           1964
+XI1277             bfr                      1823         2187         2104          1828        2185           2091
+XI1279             bfr                      437          2235         2123          1836        2222           2120
+XI1280             bfr                      1836         2298         2182          1841        2287           2171
+XI1281             bfr                      1841         2314         2187          1845        2313           2185
+XI1283             bfr                      275          2546         2235          1850        2522           2222
+XI1284             bfr                      1850         2561         2298          1853        2555           2287
+XI1285             bfr                      1853         2563         2314          1856        2562           2313
+XI1287             bfr                      228          2572         2546          1861        2568           2522
+XI1288             bfr                      1861         2575         2561          1864        2573           2555
+XI1289             bfr                      1864         2584         2563          1866        2576           2562
+XI1291             bfr                      2991         2591         2572          1869        2590           2568
+XI1292             bfr                      1869         2604         2575          1872        2597           2573
+XI1293             bfr                      1872         2612         2584          1874        2611           2576
+XI1295             bfr                      2971         2618         2591          1879        2616           2590
+XI1296             bfr                      1879         2628         2604          1883        2623           2597
+XI1297             bfr                      1883         2631         2612          1886        2629           2611
+XI1299             bfr                      2941         2638         2618          1892        2637           2616
+XI1300             bfr                      1892         2642         2628          1896        2639           2623
+XI1301             bfr                      1896         2652         2631          1899        2650           2629
+XI1303             bfr                      2919         2665         2638          1905        2663           2637
+XI1304             bfr                      1905         2667         2642          1909        2666           2639
+XI1305             bfr                      1909         2669         2652          1912        2668           2650
+XI1307             bfr                      2897         2677         2665          1918        2676           2663
+XI1308             bfr                      1918         2681         2667          1923        2680           2666
+XI1309             bfr                      1923         2683         2669          1928        2682           2668
+XI1311             bfr                      2857         2701         2677          1938        2700           2676
+XI1312             bfr                      1938         2704         2681          1944        2702           2680
+XI1313             bfr                      1944         2709         2683          1947        2705           2682
+XI1315             bfr                      2647         2719         2701          1953        2718           2700
+XI1316             bfr                      1953         2721         2704          1959        2720           2702
+XI1317             bfr                      1959         2728         2709          1962        2722           2705
+XI1319             bfr                      936          2739         2719          1968        2738           2718
+XI132              bfr                      2592         2268         2594          737         2267           2593
+XI1320             bfr                      1968         2741         2721          1971        2740           2720
+XI1321             bfr                      1971         2744         2728          1973        2742           2722
+XI1323             bfr                      594          1157         2739          1981        35             2738
+XI1324             bfr                      1981         1157         2741          1987        3014           2740
+XI1325             bfr                      1987         2751         2744          1992        35             2742
+XI134              bfr                      2602         2594         2272          2605        2593           2271
+XI1341             bfr                      1977         2177         1972          277         2176           1969
+XI1345             bfr                      1927         1939         1935          2414        1937           1933
+XI1346             bfr                      1943         1952         1891          751         1951           1880
+XI135              bfr                      2606         2270         2608          2359        2269           2607
+XI1351             bfr                      1910         1915         1900          716         1914           1895
+XI1352             bfr                      1396         1435         1405          116         1434           1404
+XI1355             bfr                      1484         1500         1486          85          1499           1485
+XI1360             bfr                      1221         1227         1223          2419        1224           1222
+XI1361             bfr                      2767         828          748           2421        756            726
+XI1366             bfr                      2793         1345         1235          2423        1273           1228
+XI1367             bfr                      1051         1373         934           2425        1351           829
+XI137              bfr                      2617         2608         2292          2619        2607           2291
+XI1372             bfr                      2376         2375         2712          20          2374           2711
+XI1374             bfr                      2736         2378         578           240         2377           551
+XI1377             bfr                      2824         2387         2951          3008        2385           2924
+XI1380             bfr                      32           1950         69            12          1948           61
+XI1383             bfr                      700          1967         1395          2433        1966           1374
+XI1386             bfr                      2984         1384         2996          1760        1383           2988
+XI1388             bfr                      1440         1511         1448          727         1483           1441
+XI139              bfr                      13           2081         1877          604         1994           1878
+XI1391             bfr                      1608         1590         1620          447         1589           1610
+XI1396             bfr                      2093         867          2200          2909        866            2199
+XI1397             bfr                      1429         2231         2229          2917        2230           2228
+XI1400             bfr                      2188         887          2191          2244        886            2190
+XI1405             bfr                      1302         1313         1308          2903        1309           1307
+XI1406             bfr                      1336         532          1350          2247        529            1346
+XI1411             bfr                      1334         2106         2109          2792        2105           2108
+XI1412             bfr                      1263         540          2242          2323        539            2241
+XI1417             bfr                      2103         1272         2099          2906        1266           2095
+XI1418             bfr                      1048         1074         1072          2334        1067           1061
+XI1423             bfr                      1085         1071         1078          672         1070           1073
+XI1424             bfr                      1103         577          1106          658         576            1104
+XI1429             bfr                      991          999          997           520         998            993
+XI143              bfr                      2644         2290         2646          734         2289           2645
+XI1430             bfr                      1006         1017         1014          2339        1015           1013
+XI1435             bfr                      1052         1032         1043          622         1031           1035
+XI1436             bfr                      516          533          518           2324        522            517
+XI1439             bfr                      564          554          584           163         544            565
+XI1444             bfr                      1165         1131         1183          2335        1130           1172
+XI1445             bfr                      1226         1447         1427          381         1437           1250
+XI145              bfr                      2655         2646         1701          2658        2645           1700
+XI1450             bfr                      1941         2901         2737          766         2900           1956
+XI1451             bfr                      2904         1136         1249          2338        1135           1247
+XI1454             bfr                      178          372          250           738         371            179
+XI1457             bfr                      172          1201         1161          739         1196           1155
+XI146              bfr                      2659         1703         2661          733         1702           2660
+XI1460             bfr                      1175         624          2781          743         623            2778
+XI1463             bfr                      2786         2780         2809          757         2779           2789
+XI1466             bfr                      2969         2482         891           760         2472           2986
+XI1471             bfr                      280          2708         2749          762         2566           2710
+XI1472             bfr                      286          392          288           741         391            287
+XI1477             bfr                      1153         377          1142          742         376            1141
+XI1478             bfr                      819          827          825           723         826            823
+XI148              bfr                      2671         2661         1714          2675        2660           1713
+XI1483             bfr                      883          888          877           725         885            849
+XI1484             bfr                      1134         1774         626           729         1773           548
+XI1487             bfr                      466          1777         482           732         1776           469
+XI149              bfr                      765          2285         1726          2654        2284           1725
+XI1490             bfr                      903          2452         2450          2372        2451           2449
+XI1491             bfr                      2392         2450         2454          907         2449           2453
+XI1492             bfr                      671          2454         2456          2393        2453           2455
+XI1493             bfr                      674          2456         2459          2402        2455           2458
+XI1494             bfr                      2132         2459         2134          920         2458           2133
+XI1495             bfr                      2136         2134         2138          924         2133           2137
+XI1496             bfr                      2139         2138         2141          683         2137           2140
+XI1497             bfr                      2198         2141         2202          684         2140           2201
+XI1498             bfr                      2257         2202         2261          947         2201           2258
+XI1499             bfr                      2341         2261         2343          951         2258           2342
+XI150              bfr                      562          1738         1735          2670        1737           1731
+XI1500             bfr                      2370         2343         2447          690         2342           2446
+XI1501             bfr                      691          2447         2531          2404        2446           2530
+XI1502             bfr                      963          2531         2529          2405        2530           2528
+XI1503             bfr                      2406         2529         2533          967         2528           2532
+XI1504             bfr                      1655         2438         2470          2128        2437           2469
+XI1505             bfr                      699          2533         2440          2407        2532           2439
+XI1506             bfr                      704          2440         2442          2408        2439           2441
+XI1507             bfr                      2069         2442         2445          1119        2441           2444
+XI1508             bfr                      2070         2445         2516          1120        2444           2515
+XI1509             bfr                      2583         2516         2518          1767        2515           2517
+XI1510             bfr                      2052         2518         2505          1658        2517           2504
+XI1511             bfr                      2057         2505         2503          649         2504           2502
+XI1512             bfr                      2058         2503         2508          650         2502           2507
+XI1513             bfr                      2051         2508         2510          845         2507           2509
+XI1514             bfr                      2056         2510         2521          1617        2509           2520
+XI1515             bfr                      653          2521         2488          2059        2520           2487
+XI1516             bfr                      631          2488         2486          2055        2487           2485
+XI1517             bfr                      1029         2486         2490          2072        2485           2489
+XI1518             bfr                      2600         2490         2492          2068        2489           2491
+XI1519             bfr                      2403         2492         2494          602         2491           2493
+XI1520             bfr                      603          2494         2501          2053        2493           2500
+XI1521             bfr                      2073         2554         2499          995         2553           2498
+XI1522             bfr                      2074         2499         2496          2625        2498           2495
+XI1523             bfr                      2076         2501         2554          1652        2500           2553
+XI1524             bfr                      1211         2496         2513          2075        2495           2512
+XI1525             bfr                      2821         2513         2480          2129        2512           2479
+XI1526             bfr                      2130         2480         2438          1661        2479           2437
+XI1527             bfr                      363          2484         2481          2131        2483           2127
+XI1528             bfr                      1670         2552         2468          244         2551           2467
+XI1529             bfr                      1685         2470         2552          413         2469           2551
+XI1530             bfr                      408          2468         2474          1684        2467           2473
+XI1531             bfr                      387          2478         2476          1764        2477           2475
+XI1532             bfr                      400          2474         2478          1674        2473           2477
+XI1533             bfr                      406          2476         2524          1677        2475           2523
+XI1534             bfr                      1675         2526         2548          369         2525           2547
+XI1535             bfr                      979          2524         2526          2409        2523           2525
+XI1536             bfr                      2434         2548         2461          983         2547           2460
+XI1537             bfr                      711          2466         2550          2435        2465           2549
+XI1538             bfr                      1671         2461         2466          394         2460           2465
+XI1539             bfr                      1673         2550         2463          395         2549           2462
+XI1540             bfr                      2814         292          281           338         282            2868
+XI1541             bfr                      373          2463         292           634         2462           282
+XI1542             bfr                      1176         281          1391          636         2868           1177
+XI1543             bfr                      1421         1453         1450          352         1451           1449
+XI1544             bfr                      1454         1391         1453          640         1177           1451
+XI1545             bfr                      1628         1450         2484          643         1449           2483
+XI162              bfr                      2898         1612         1657          30          1611           1648
+XI163              bfr                      30           1618         1644          580         1615           1643
+XI164              bfr                      2830         2362         1865          2126        2361           1863
+XI168              bfr                      580          1726         1738          62          1725           1737
+XI169              bfr                      62           1695         1712          68          1694           1705
+XI170              bfr                      68           1701         1703          574         1700           1702
+XI171              bfr                      2836         1865         2413          45          1863           1868
+XI172              bfr                      45           1656         2364          50          1654           2365
+XI173              bfr                      50           1664         2364          581         1663           1868
+XI174              bfr                      581          1735         2367          77          1731           1873
+XI175              bfr                      77           1711         2367          79          1706           2366
+XI176              bfr                      79           1714         2368          666         1713           1873
+XI189              bfr                      121          127          1100          126         125            1099
+XI190              bfr                      128          1858         1107          130         1851           1102
+XI191              bfr                      131          1975         1109          134         1970           1108
+XI192              bfr                      135          2236         1112          136         2234           1110
+XI193              bfr                      138          2240         2238          141         2239           2237
+XI195              bfr                      126          147          533           455         146            522
+XI196              bfr                      130          1888         1131          457         1881           1130
+XI197              bfr                      134          2011         2901          458         2001           2900
+XI198              bfr                      136          2249         1136          464         2248           1135
+XI199              bfr                      141          2256         2251          465         2252           2250
+XI203              bfr                      165          1566         1167          169         1563           1166
+XI205              bfr                      455          1676         171           165         1641           170
+XI206              bfr                      169          1660         1774          176         1659           1773
+XI207              bfr                      177          2260         1777          2640        2259           1776
+XI208              bfr                      457          1708         2849          184         1697           2852
+XI209              bfr                      184          2263         1178          177         2262           1171
+XI210              bfr                      185          1766         2266          186         1765           2264
+XI211              bfr                      458          1749         2255          185         1733           2265
+XI212              bfr                      186          1770         2268          2878        1768           2267
+XI213              bfr                      194          2272         2270          779         2271           2269
+XI214              bfr                      464          2274         202           204         2273           201
+XI215              bfr                      204          2279         2277          194         2278           2275
+XI216              bfr                      211          2283         2281          215         2282           2280
+XI217              bfr                      465          2288         2285          211         2286           2284
+XI218              bfr                      215          2292         2290          571         2291           2289
+XI369              bfr                      2761         2215         1215          749         687            1214
+XI370              bfr                      1408         1277         1410          443         556            1409
+XI371              bfr                      1411         2841         1413          2968        2079           1412
+XI374              bfr                      2755         1215         2177          66          1214           2176
+XI375              bfr                      1414         1410         2207          442         1409           2206
+XI377              bfr                      1415         1413         2214          2974        1412           2213
+XI381              bfr                      1342         2207         1344          446         2206           1343
+XI384              bfr                      1349         1344         933           1631        1343           932
+XI391              bfr                      785          1145         768           2691        1138           781
+XI392              bfr                      2691         928          857           2699        927            856
+XI393              bfr                      2699         933          838           452         932            834
+XI394              bfr                      986          1680         2061          531         1679           2060
+XI395              bfr                      452          1341         860           854         1340           861
+XI396              bfr                      854          931          2063          986         930            2062
+XI468              bfr                      1274         838          1276          2912        834            1275
+XI47               bfr                      689          2731         2756          121         2730           2757
+XI470              bfr                      1283         1276         784           2910        1275           782
+XI473              bfr                      1240         784          1242          2915        782            1241
+XI475              bfr                      1244         1242         808           227         1241           803
+XI477              bfr                      86           1041         1289          750         1034           1288
+XI478              bfr                      750          798          1604          978         795            1597
+XI479              bfr                      978          808          1511          2920        803            1483
+XI48               bfr                      695          2725         2726          128         2723           2727
+XI49               bfr                      702          2558         2732          131         2527           2733
+XI490              bfr                      223          1487         1254          1348        1456           1253
+XI491              bfr                      1348         1988         2092          2810        1979           2077
+XI492              bfr                      2810         1911         867           1022        1691           866
+XI50               bfr                      710          1359         2840          135         1260           2842
+XI503              bfr                      88           1125         989           2813        1118           990
+XI504              bfr                      2813         1424         2184          2808        1423           2180
+XI505              bfr                      2808         2233         887           2796        2232           886
+XI51               bfr                      721          2748         2311          138         2747           2312
+XI516              bfr                      645          2950         1008          2626        2762           1007
+XI517              bfr                      2626         1635         2114          2601        1634           2113
+XI518              bfr                      2601         2193         532           2908        2192           529
+XI52               bfr                      731          2219         2362          2898        2217           2361
+XI529              bfr                      76           98           1037          2363        820            1036
+XI530              bfr                      2363         1330         1262          2843        1329           1257
+XI531              bfr                      2843         2112         540           14          2111           539
+XI542              bfr                      87           661          1063          2882        252            1062
+XI543              bfr                      2882         2102         546           2815        2101           545
+XI544              bfr                      2815         2098         1074          28          2097           1067
+XI555              bfr                      713          302          1096          2581        285            1095
+XI556              bfr                      2581         1091         575           2603        1090           566
+XI557              bfr                      2603         1094         577           236         1093           576
+XI568              bfr                      73           662          2752          2826        656            2753
+XI569              bfr                      2826         901          1027          2844        900            1018
+XI570              bfr                      2844         1246         1017          2987        1245           1015
+XI572              bfr                      588          707          2828          269         706            2827
+XI573              bfr                      596          2828         2125          2830        2827           2124
+XI594              bfr                      604          2125         2413          2836        2124           2365
+XI602              bfr                      14           1140         1149          2835        1139           1148
+XI615              bfr                      28           1164         1174          2649        1163           1173
+XI631              bfr                      236          1189         880           1596        1188           881
+XI633              bfr                      1203         2065         1205          53          2064           1204
+XI635              bfr                      1209         1205         2047          776         1204           2046
+XI640              bfr                      2319         361          359           418         360            357
+XI641              bfr                      1022         787          801           2318        786            800
+XI642              bfr                      2318         356          365           2319        354            364
+XI643              bfr                      805          359          807           2347        357            806
+XI645              bfr                      809          807          1717          763         806            1716
+XI650              bfr                      764          1707         1193          2697        1698           1190
+XI651              bfr                      2796         813          817           764         812            816
+XI655              bfr                      2697         368          372           526         366            371
+XI664              bfr                      2908         833          846           767         832            844
+XI666              bfr                      850          2061         852           668         2060           851
+XI668              bfr                      855          852          382           759         851            380
+XI673              bfr                      769          384          2065          530         383            2064
+XI674              bfr                      2920         859          788           770         858            789
+XI675              bfr                      770          1692         2067          769         1682           2066
+XI684              bfr                      2987         879          2862          276         878            2863
+XI694              bfr                      2372         2452         905           906         2078           904
+XI696              bfr                      907          905          419           908         904            417
+XI698              bfr                      2393         419          424           912         417            422
+XI699              bfr                      913          416          427           671         415            426
+XI701              bfr                      2402         424          429           916         422            428
+XI702              bfr                      531          914          918           675         915            917
+XI703              bfr                      675          427          434           674         426            433
+XI704              bfr                      920          429          922           923         428            921
+XI71               bfr                      1301         2251         1321          496         2250           1311
+XI712              bfr                      924          922          441           938         921            440
+XI713              bfr                      683          441          445           939         440            444
+XI714              bfr                      940          436          451           2139        435            448
+XI716              bfr                      684          445          456           943         444            453
+XI717              bfr                      530          941          945           686         942            944
+XI718              bfr                      686          451          468           2198        448            467
+XI719              bfr                      947          456          949           950         453            948
+XI721              bfr                      951          949          478           952         948            474
+XI723              bfr                      690          478          485           955         474            480
+XI724              bfr                      956          473          490           2370        472            487
+XI726              bfr                      2404         485          492           960         480            491
+XI727              bfr                      418          958          962           692         959            961
+XI728              bfr                      692          490          497           691         487            493
+XI729              bfr                      2405         492          965           966         491            964
+XI73               bfr                      1387         1321         1618          765         1311           1615
+XI731              bfr                      967          965          506           969         964            505
+XI733              bfr                      2407         2089         509           972         2088           507
+XI734              bfr                      973          499          511           699         498            510
+XI736              bfr                      2408         509          2025          977         507            2024
+XI737              bfr                      703          511          2023          704         510            2022
+XI738              bfr                      526          974          1983          703         975            1985
+XI826              bfr                      338          2040         307           633         2039           306
+XI827              bfr                      337          123          310           2814        122            309
+XI828              bfr                      571          1750         315           337         1748           314
+XI829              bfr                      634          1442         2543          1624        1428           2542
+XI830              bfr                      2658         315          317           347         314            316
+XI832              bfr                      636          307          331           638         306            330
+XI833              bfr                      352          331          334           639         330            332
+XI834              bfr                      574          317          336           351         316            335
+XI835              bfr                      351          323          340           1421        321            339
+XI836              bfr                      640          155          1965          641         154            1963
+XI837              bfr                      2675         336          342           355         335            341
+XI839              bfr                      643          334          349           644         332            348
+XI840              bfr                      2131         349          2992          249         348            350
+XI841              bfr                      666          342          2368          362         341            2366
+XI842              bfr                      362          346          2481          363         343            350
+XI843              bfr                      2409         1957         2545          982         1955           2544
+XI845              bfr                      983          981          515           984         980            514
+XI847              bfr                      2435         515          1926          987         514            1925
+XI848              bfr                      779          1758         1753          712         1757           1752
+XI849              bfr                      712          513          1921          711         512            1916
+XI850              bfr                      394          132          2535          397         129            2534
+XI852              bfr                      395          1926         2040          988         1925           2039
+XI854              bfr                      1674         139          2019          403         137            2018
+XI855              bfr                      370          144          1946          1675        142            1942
+XI856              bfr                      2878         149          1762          370         145            1759
+XI857              bfr                      369          153          981           2643        152            980
+XI859              bfr                      1677         402          153           407         401            152
+XI862              bfr                      1684         2539         155           411         2538           154
+XI864              bfr                      1764         1965         402           2648        1963           401
+XI865              bfr                      2640         166          150           386         161            151
+XI866              bfr                      386          158          160           387         157            159
+XI867              bfr                      413          1426         412           425         1420           410
+XI878              bfr                      2664         432          463           2894        431            462
+XI879              bfr                      2894         193          212           2052        192            210
+XI880              bfr                      1658         189          219           481         188            218
+XI891              bfr                      1617         206          1426          495         205            1420
+XI892              bfr                      1606         199          222           2056        197            221
+XI893              bfr                      2838         501          504           1606        502            503
+XI904              bfr                      2068         239          139           547         238            137
+XI905              bfr                      2577         242          2021          2600        241            2020
+XI906              bfr                      2892         524          550           2577        523            549
+XI917              bfr                      2625         255          1957          589         254            1955
+XI918              bfr                      2839         248          257           2074        247            256
+XI919              bfr                      2893         572          591           2839        570            590
+XI930              bfr                      2129         2535         2541          625         2534           2540
+XI931              bfr                      2881         266          300           2821        265            299
+XI932              bfr                      2636         268          304           2881        267            303
+XI943              bfr                      176          1338         1332          243         1333           1294
+XI944              bfr                      243          1418         1364          1670        1393           1339
+XI945              bfr                      244          2543         2539          2689        2542           2538
+XI954              bfr                      774          1133         624           2664        1132           623
+XI955              bfr                      767          848          1186          774         847            1180
+XI964              bfr                      2835         1159         632           775         1158           629
+XI965              bfr                      775          1169         2482          2838        1168           2472
+XI974              bfr                      2649         871          390           771         870            389
+XI975              bfr                      771          873          392           2892        872            391
+XI984              bfr                      1596         1151         1545          773         1147           1459
+XI985              bfr                      773          1458         827           2893        1457           826
+XI990              bfr                      262          842          264           1206        841            263
+XI992              bfr                      271          264          2801          608         263            2799
+XI994              bfr                      276          2803         1111          278         2802           890
+XI995              bfr                      278          2801         888           2636        2799           885
+XI1106             const0                   2992         2041         2443          2127        630
+XI109              maj_1bbbb_2_left         2337         778          560           496         2255           2274            2226              2265       2273
+XI110              maj_1bbbb_2_left         477          484          2990          558         202            2288            2276              201        2286
+XI34               maj_1bbbb_2_left         583          475          2952          2338        2849           2848            2565              2852       2847
+XI379              maj_1bbbb_2_left         443          442          446           727         1277           1575            2694              2205       1567
+XI38               maj_1bbbb_2_left         864          290          2340          2335        2862           2861            293               2863       2859
+XI40               maj_1bbbb_2_left         1279         2921         1907          766         171            2845            2537              170        2846
+XI590              maj_1bbbb_2_left         663          1476         735           2334        846            1117            1137              844        1113
+XI607              maj_1bbbb_2_left         664          2867         23            658         1149           1150            1162              1148       1129
+XI623              maj_1bbbb_2_left         33           42           47            2339        1174           1219            889               1173       1212
+XI636              maj_1bbbb_2_left         2961         2245         2246          2244        788            2899            1779              789        2812
+XI646              maj_1bbbb_2_left         2679         2321         2322          2247        801            3000            2344              800        2979
+XI659              maj_1bbbb_2_left         2902         2783         2903          2323        817            80              831               816        72
+XI669              maj_1bbbb_2_left         2912         2910         2915          2909        860            209             780               861        183
+XI679              maj_1bbbb_2_left         2963         90           2978          2324        880            322             259               881        311
+XI1016             maj_1bbbb_2_right        906          908          912           1541        1934           1932            985               1936       1930
+XI1018             maj_1bbbb_2_right        923          938          939           1551        1721           2834            1549              1722       2831
+XI1020             maj_1bbbb_2_right        950          952          955           425         2853           2855            1564              2837       2854
+XI1022             maj_1bbbb_2_right        966          969          972           403         2858           2866            1578              2856       2865
+XI1024             maj_1bbbb_2_right        1599         1598         1601          982         2871           2873            1594              2870       2872
+XI1026             maj_1bbbb_2_right        1614         1613         1616          397         2875           2883            1609              2874       2877
+XI1028             maj_1bbbb_2_right        1627         1626         1629          1624        2886           2888            1623              2885       2887
+XI1030             maj_1bbbb_2_right        1638         1637         1640          641         2891           2896            1633              2889       2895
+XI23               maj_1bbbb_2_right        187          220          117           20          2752           1920            761               2753       1913
+XI25               maj_1bbbb_2_right        198          231          133           240         2756           1871            793               2757       1867
+XI27               maj_1bbbb_2_right        156          5            2396          3008        2726           1847            740               2727       1831
+XI29               maj_1bbbb_2_right        99           245          63            12          2732           1901            811               2733       1876
+XI31               maj_1bbbb_2_right        124          260          2428          2433        2840           1993            783               2842       1931
+XI378              maj_1bbbb_2_right        749          66           277           2414        559            1557            140               2218       1547
+XI45               maj_1bbbb_2_right        226          253          609           269         2311           2219            802               2312       2217
+XI471              maj_1bbbb_2_right        717          746          89            751         768            1377            680               781        1337
+XI484              maj_1bbbb_2_right        2427         143          747           716         1289           1256            685               1288       1255
+XI497              maj_1bbbb_2_right        91           2429         100           116         1254           1509            1723              1253       1498
+XI510              maj_1bbbb_2_right        753          2415         2416          85          989            367             2805              990        345
+XI523              maj_1bbbb_2_right        11           718          164           2419        1008           421             2579              1007       409
+XI536              maj_1bbbb_2_right        720          75           752           2421        1037           470             2825              1036       459
+XI549              maj_1bbbb_2_right        754          719          2687          2423        1063           557             2627              1062       542
+XI562              maj_1bbbb_2_right        2693         81           82            2425        1096           1053            2371              1095       1012
+XI697              maj_1bbbb_2_right        2968         2974         2029          738         283            911             670               2451       910
+XI706              maj_1bbbb_2_right        668          759          758           743         918            926             679               917        925
+XI722              maj_1bbbb_2_right        53           776          777           760         945            954             688               944        953
+XI732              maj_1bbbb_2_right        2347         763          329           741         962            971             697               961        970
+XI858              maj_1bbbb_2_right        2559         2569         405           733         150            149             375               151        145
+XI863              maj_1bbbb_2_right        2506         2556         398           734         1332           166             385               1294       161
+XI872              maj_1bbbb_2_right        2703         2688         843           723         1983           2154            1651              1985       2090
+XI885              maj_1bbbb_2_right        2690         2678         1156          725         463            2471            1625              462        2395
+XI898              maj_1bbbb_2_right        667          525          1194          729         504            2599            2822              503        2589
+XI911              maj_1bbbb_2_right        2816         573          1452          732         550            2724            2360              549        2716
+XI924              maj_1bbbb_2_right        660          261          608           737         591            268             607               590        267
+XI937              maj_1bbbb_2_right        289          295          655           2359        304            1338            654               303        1333
+XI1                risako_GP_ene_opt        1650         1556         1803          2598        519            1649            1066              1455       898        2980      2706      420        2253       1128       1358       994
+XI2                risako_GP_ene_opt        2358         2316         17            1066        1455           898             2000              2254       1870       2985      1128      1358       994        2042       2203       1940
+XI3                risako_GP_ene_opt        2641         2630         2662          2000        2254           1870            2570              2621       2536       2993      2042      2203       1940       2578       2610       2560
+XI397              risako_GP_ene_opt        1378         1363         821           687         3018           3015            1371              1376       1369       730       976       976        2220       1372       1375       1370
+XI398              risako_GP_ene_opt        1231         1271         1528          1402        1407           1400            1475              1488       1482       1526      1403      1406       1401       1474       1489       1481
+XI399              risako_GP_ene_opt        1234         1239         1493          1475        1488           1482            1479              1491       1477       1492      1474      1489       1481       1480       1490       1478
+XI4                risako_GP_ene_opt        2759         2750         2768          2570        2621           2536            2695              2743       2673       2999      2578      2610       2560       2707       2735       2684
+XI400              risako_GP_ene_opt        1444         1503         1505          1479        1491           1477            1496              1502       1494       1504      1480      1490       1478       1497       1501       1495
+XI401              risako_GP_ene_opt        1514         1431         1516          1496        1502           1494            1508              1513       1506       1515      1497      1501       1495       1510       1512       1507
+XI402              risako_GP_ene_opt        1460         1523         1525          1508        1513           1506            1519              1522       1517       1524      1510      1512       1507       1520       1521       1518
+XI403              risako_GP_ene_opt        1394         1399         1537          1519        1522           1517            1464              1470       1467       1535      1520      1521       1518       1463       1471       1466
+XI404              risako_GP_ene_opt        1385         1220         1473          1464        1470           1467            2598              519        1649       1472      1463      1471       1466       2706       420        2253
+XI405              risako_GP_ene_opt        1270         1225         2798          1371        1376           1369            1402              1407       1400       2797      1372      1375       1370       1403       1406       1401
+XI5                risako_GP_ene_opt        2833         2829         2851          2695        2743           2673            2794              2823       2774       3006      2707      2735       2684       2800       2817       2784
+XI6                risako_GP_ene_opt        2931         2922         44            2794        2823           2774            2880              2918       2860       3012      2800      2817       2784       2890       2913       2869
+XI7                risako_GP_ene_opt        22           13           41            2880        2918           2860            1875              1878       1875       31        2890      2913       2869       1877       2369       2369
+XI1547             risako_SUM_ene_opt       745          1549         2014          2006        2010           2002            2005              2008       2013       2007      2012      2003       2004       2009       936
+XI1548             risako_SUM_ene_opt       1562         1564         2002          2005        2008           1739            1744              1754       2003       2004      2009      1740       1743       1755       2647
+XI1549             risako_SUM_ene_opt       1576         1578         1739          1744        1754           1771            1796              1798       1740       1743      1755      1772       1794       1800       2857
+XI1550             risako_SUM_ene_opt       1592         1594         1771          1796        1798           1806            1813              1816       1772       1794      1800      1808       1811       1817       2897
+XI1551             risako_SUM_ene_opt       1607         1609         1806          1813        1816           1822            1829              1833       1808       1811      1817      1824       1827       1834       2919
+XI1552             risako_SUM_ene_opt       1621         1623         1822          1829        1833           1840            1846              1848       1824       1827      1834      1842       1844       1849       2941
+XI1553             risako_SUM_ene_opt       1632         1633         1840          1846        1848           1852            1857              1859       1842       1844      1849      1854       1855       1860       2971
+XI1554             risako_SUM_ene_opt       1645         2457         1852          1857        1859           2174            2168              2170       1854       1855      1860      2173       2169       2172       2991
+XI1555             risako_SUM_ene_opt       2464         2386         2174          2168        2170           673             678               681        2173       2169      2172      676        677        682        228
+XI1556             risako_SUM_ene_opt       1105         1207         673           678         681            1002            1009              1010       676        677       682       1003       1005       1011       275
+XI1557             risako_SUM_ene_opt       2035         2582         1002          1009        1010           1016            1023              1025       1003       1005      1011      1020       1021       1026       437
+XI1558             risako_SUM_ene_opt       2412         2448         1016          1023        1025           1038            1042              1044       1020       1021      1026      1039       1040       1045       460
+XI1559             risako_SUM_ene_opt       2497         2373         1038          1042        1044           2122            2116              2118       1039       1040      1045      2121       2117       2119       488
+XI1560             risako_SUM_ene_opt       1082         1236         2122          2116        2118           592             599               600        2121       2117      2119      597        598        601        521
+XI1561             risako_SUM_ene_opt       2357         2571         592           599         600            610             613               614        597        598       601       611        612        615        541
+XI1562             risako_SUM_ene_opt       2418         2443         610           613         614            618             3017              618        611        612       615       619        620        620        563
+XI1262             sink                     593          118          0             115         110
+XI1266             sink                     647          2940         118           2651        115
+XI1270             sink                     1795         1741         2940          1728        2651
+XI1274             sink                     1812         2115         1741          2110        1728
+XI1278             sink                     1828         2216         2115          2211        2110
+XI1282             sink                     1845         2519         2216          2317        2211
+XI1286             sink                     1856         2567         2519          2564        2317
+XI1290             sink                     1866         2588         2567          2586        2564
+XI1294             sink                     1874         2615         2588          2613        2586
+XI1298             sink                     1886         2634         2615          2633        2613
+XI1302             sink                     1899         2657         2634          2656        2633
+XI1306             sink                     1912         2674         2657          2672        2656
+XI1310             sink                     1928         2696         2674          2692        2672
+XI1314             sink                     1947         2717         2696          2715        2692
+XI1318             sink                     1962         2734         2717          2729        2715
+XI1322             sink                     1973         2746         2734          2745        2729
+XI1326             sink                     1992         2751         2746          0           2745
+XI10               spl2                     536          2807         1967          2432        2806           1966            721
+XI1005             spl2                     1355         2212         931           1356        2210           930             308
+XI1009             spl2                     318          1693         1692          319         1681           1682            320
+XI1011             spl2                     796          2049         356           790         2048           354             797
+XI1014             spl2                     324          1709         1707          325         1696           1698            326
+XI1035             spl2                     2622         2349         2263          1791        2348           2262            2954
+XI1038             spl2                     2632         646          1766          399         628            1765            1646
+XI1042             spl2                     270          836          2803          262         835            2802            271
+XI1043             spl2                     2580         893          1566          296         892            1563            301
+XI1061             spl2                     607          257          266           2076        256            265             1211
+XI1064             spl2                     654          300          1418          2130        299            1393            1655
+XI1067             spl2                     1651         2023         196           2069        2022           195             2070
+XI1070             spl2                     1625         212          203           2057        210            200             2058
+XI1073             spl2                     2822         222          225           653         221            224             631
+XI1076             spl2                     2360         2021         2028          2403        2020           2026            603
+XI11               spl2                     2750         2390         2399          479         2389           2394            489
+XI113              spl2                     2197         2331         2236          2143        2330           2234            2204
+XI116              spl2                     2043         2326         2240          2050        2325           2239            2054
+XI119              spl2                     2126         1657         1656          2085        1648           1654            2135
+XI12               spl2                     479          714          2787          2430        709            2782            63
+XI13               spl2                     489          2787         1950          617         2782           1948            710
+XI133              spl2                     2226         2266         2279          2592        2264           2278            2602
+XI1340             spl2                     1974         1972         1939          162         1969           1937            785
+XI1342             spl2                     1363         2179         1924          1977        2178           1917            1974
+XI1343             spl2                     1929         1935         2183          717         1933           2181            746
+XI1344             spl2                     1270         1924         1922          1927        1917           1919            1929
+XI1347             spl2                     1231         1961         1960          1943        1954           1958            1893
+XI1348             spl2                     1893         1891         1890          2427        1880           1882            143
+XI1349             spl2                     1902         1900         1898          91          1895           1897            2429
+XI1350             spl2                     1234         1908         1906          1910        1903           1904            1902
+XI1353             spl2                     1444         1445         2346          1396        1436           2345            1446
+XI1354             spl2                     1446         1405         1469          753         1404           1468            2415
+XI1356             spl2                     1529         1486         1889          11          1485           1887            718
+XI1357             spl2                     1514         1885         1531          1484        1884           1530            1529
+XI1358             spl2                     1460         1666         2355          1221        1532           2354            1667
+XI1359             spl2                     1667         1223         1690          720         1222           1688            75
+XI136              spl2                     2276         2277         2283          2606        2275           2282            2617
+XI1362             spl2                     2772         748          2196          754         726            2195            719
+XI1363             spl2                     1394         2227         2760          2767        2225           2758            2772
+XI1364             spl2                     1385         2790         2776          2793        2773           2775            2795
+XI1365             spl2                     2795         1235         1230          2693        1228           1229            81
+XI1368             spl2                     937          934          896           187         829            895             220
+XI1369             spl2                     1650         1050         1049          1051        996            1001            937
+XI1370             spl2                     2358         1097         1092          2376        1054           1089            1098
+XI1371             spl2                     1098         2712         1216          198         2711           1123            231
+XI1373             spl2                     2641         2382         2381          2736        2379           2380            586
+XI1375             spl2                     586          578          2384          156         551            2383            5
+XI1376             spl2                     102          2951         714           99          2924           709             245
+XI1378             spl2                     2759         2391         2390          2824        2388           2389            102
+XI1379             spl2                     2833         2399         2398          32          2394           2397            93
+XI1381             spl2                     93           69           2401          124         61             2400            260
+XI1382             spl2                     701          1395         1384          226         1374           1383            253
+XI1384             spl2                     2931         698          696           700         693            694             701
+XI1385             spl2                     2922         696          2411          2984        694            2410            708
+XI1387             spl2                     708          2996         707           609         2988           706             731
+XI1389             spl2                     1595         1448         1590          2961        1441           1589            2245
+XI1390             spl2                     685          1604         1603          1440        1597           1600            1595
+XI1392             spl2                     1945         1620         1911          2246        1610           1691            2907
+XI1393             spl2                     1251         1603         1988          1608        1600           1979            1945
+XI1394             spl2                     1723         2092         1425          2093        2077           1422            2094
+XI1395             spl2                     2094         2200         2231          2679        2199           2230            2321
+XI1398             spl2                     1430         2229         2233          2322        2228           2232            52
+XI1399             spl2                     1318         1425         1424          1429        1422           1423            1430
+XI14               spl2                     439          2791         2387          1769        2788           2385            702
+XI1401             spl2                     2805         2184         1636          2188        2180           1622            2189
+XI1402             spl2                     2189         2191         1313          2902        2190           1309            2783
+XI1403             spl2                     1639         1308         2193          173         1307           2192            1004
+XI1404             spl2                     1000         1636         1635          1302        1622           1634            1639
+XI1407             spl2                     2579         2114         1331          1336        2113           1323            2107
+XI1408             spl2                     2107         1350         2106          663         1346           2105            1476
+XI1409             spl2                     1335         2109         2112          735         2108           2111            108
+XI1410             spl2                     1033         1331         1330          1334        1323           1329            1335
+XI1413             spl2                     2825         1262         1261          1263        1257           1258            1265
+XI1414             spl2                     1265         2242         1272          664         2241           1266            2867
+XI1415             spl2                     2100         2099         2098          23          2095           2097            2966
+XI1416             spl2                     1056         1261         2102          2103        1258           2101            2100
+XI1419             spl2                     2627         546          1084          1048        545            1083            1154
+XI1420             spl2                     1154         1072         1071          33          1061           1070            42
+XI1421             spl2                     1081         1078         1094          47          1073           1093            54
+XI1422             spl2                     1086         1084         1091          1085        1083           1090            1081
+XI1425             spl2                     2371         575          902           1103        566            897             1115
+XI1426             spl2                     1115         1106         999           2963        1104           998             90
+XI1427             spl2                     992          997          1246          2978        993            1245            333
+XI1428             spl2                     1116         902          901           991         897            900             992
+XI1431             spl2                     761          1027         1024          1006        1018           1019            1028
+XI1432             spl2                     1028         1014         1032          864         1013           1031            290
+XI1433             spl2                     1046         1043         147           2340        1035           146             552
+XI1434             spl2                     2511         1024         127           1052        1019           125             1046
+XI1437             spl2                     793          1100         538           516         1099           534             543
+XI1438             spl2                     543          518          554           1279        517            544             2921
+XI144              spl2                     2654         2281         1695          2644        2280           1694            2655
+XI1440             spl2                     715          584          1888          1907        565            1881            500
+XI1441             spl2                     2514         538          1858          564         534            1851            715
+XI1442             spl2                     740          1107         1838          1165        1102           1815            818
+XI1443             spl2                     818          1183         1447          583         1172           1437            475
+XI1446             spl2                     1804         1427         2011          2952        1250           2001            404
+XI1447             spl2                     1995         1838         1975          1226        1815           1970            1804
+XI1448             spl2                     811          1109         2331          1941        1108           2330            1949
+XI1449             spl2                     1949         2737         2333          2337        1956           2332            778
+XI1452             spl2                     1252         1249         2328          477         1247           2327            484
+XI1453             spl2                     783          1112         2326          2904        1110           2325            1252
+XI1455             spl2                     831          1193         1192          178         1190           1191            1195
+XI1456             spl2                     1195         250          1201          2703        179            1196            2688
+XI1458             spl2                     839          1192         848           172         1191           847             174
+XI1459             spl2                     174          1161         1133          843         1155           1132            724
+XI1461             spl2                     1137         1186         1182          1175        1180           1181            2785
+XI1462             spl2                     2785         2781         2780          2690        2778           2779            2678
+XI1464             spl2                     1146         1182         1159          2786        1181           1158            2923
+XI1465             spl2                     2923         2809         1169          1156        2789           1168            1259
+XI1467             spl2                     1162         632          258           2969        629            251             2557
+XI1468             spl2                     2557         891          2708          667         2986           2566            525
+XI1469             spl2                     2777         2749         873           1194        2710           872             2
+XI147              spl2                     2670         1712         1711          2659        1705           1706            2671
+XI1470             spl2                     1170         258          871           280         251            870             2777
+XI1473             spl2                     889          390          1152          286         389            1144            378
+XI1474             spl2                     378          288          377           2816        287            376             573
+XI1475             spl2                     1143         1142         1458          1452        1141           1457            736
+XI1476             spl2                     1200         1152         1151          1153        1144           1147            1143
+XI1479             spl2                     259          1545         836           819         1459           835             840
+XI1480             spl2                     840          825          842           660         823            841             261
+XI1481             spl2                     882          877          875           289         849            874             295
+XI1482             spl2                     293          1111         893           883         890            892             882
+XI1485             spl2                     2537         1167         2349          1134        1166           2348            627
+XI1486             spl2                     627          626          2351          2506        548            2350            2556
+XI1488             spl2                     648          482          2353          2559        469            2352            2569
+XI1489             spl2                     2565         1178         646           466         1171           628             648
+XI15               spl2                     2630         2381         2391          430         2380           2388            439
+XI16               spl2                     430          2384         2791          2431        2383           2788            2396
+XI17               spl2                     396          2766         2378          1786        2765           2377            695
+XI18               spl2                     2316         1092         2382          388         1089           2379            396
+XI19               spl2                     388          1216         2766          1797        1123           2765            133
+XI20               spl2                     1556         1049         1097          353         1001           1054            358
+XI21               spl2                     353          896          2770          1060        895            2769            117
+XI22               spl2                     358          2770         2375          637         2769           2374            689
+XI372              spl2                     1378         2215         2179          2761        2218           2178            2755
+XI373              spl2                     140          559          2209          1408        2205           2208            1414
+XI376              spl2                     2694         2841         2212          1411        556            2210            1415
+XI382              spl2                     1347         2209         928           1342        2208           927             1349
+XI410              spl2                     2754         1469         1539          722         1468           1538            2416
+XI411              spl2                     1503         2346         1885          2754        2345           1884            2876
+XI412              spl2                     2876         1539         1500          2417        1538           1499            645
+XI417              spl2                     2820         1889         1433          374         1887           1432            164
+XI418              spl2                     1431         1531         1666          2820        1530           1532            2764
+XI419              spl2                     2764         1433         1227          2420        1432           1224            76
+XI425              spl2                     95           1690         1534          450         1688           1533            752
+XI426              spl2                     1523         2355         2227          95          2354           2225            94
+XI428              spl2                     94           1534         828           2422        1533           756             87
+XI437              spl2                     97           2196         1398          508         2195           1397            2687
+XI438              spl2                     1399         2760         2790          97          2758           2773            2926
+XI439              spl2                     2926         1398         1345          2424        1397           1273            713
+XI444              spl2                     2944         1230         1218          568         1229           1217            82
+XI445              spl2                     1220         2776         1050          2944        2775           996             3005
+XI446              spl2                     3005         1218         1373          2426        1217           1351            73
+XI449              spl2                     1225         1922         1961          2771        1919           1954            2925
+XI451              spl2                     2771         2183         1268          1527        2181           1267            89
+XI452              spl2                     2925         1268         1952          595         1267           1951            86
+XI458              spl2                     3001         1890         1233          1290        1882           1232            747
+XI459              spl2                     1271         1960         1908          3001        1958           1903            2811
+XI460              spl2                     2811         1233         1915          755         1232           1914            223
+XI465              spl2                     1718         1898         1238          1328        1897           1237            100
+XI466              spl2                     1239         1906         1445          1718        1904           1436            1686
+XI467              spl2                     1686         1238         1435          1536        1237           1434            88
+XI469              spl2                     680          857          799           1274        856            794             1283
+XI474              spl2                     1243         799          798           1240        794            795             1244
+XI634              spl2                     1779         2067         2049          1203        2066           2048            1209
+XI644              spl2                     2344         365          1709          805         364            1696            809
+XI667              spl2                     780          2063         1693          850         2062           1681            855
+XI695              spl2                     670          283          416           903         2079           415             2392
+XI705              spl2                     679          434          436           2132        433            435             2136
+XI72               spl2                     802          2238         1612          1301        2237           1611            1387
+XI720              spl2                     688          468          473           2257        467            472             2341
+XI730              spl2                     697          497          499           963         493            498             2406
+XI8                spl2                     2829         2398         698           528         2397           693             536
+XI831              spl2                     347          310          323           373         309            321             1176
+XI838              spl2                     355          340          346           1454        339            343             1628
+XI844              spl2                     705          1946         513           979         1942           512             2434
+XI851              spl2                     393          1921         123           1671        1916           122             1673
+XI860              spl2                     375          160          144           400         159            142             406
+XI861              spl2                     385          1364         158           1685        1339           157             408
+XI9                spl2                     528          2401         2807          1821        2400           2806            2428
+XI91               spl2                     22           2411         2081          588         2410           1994            596
+*end of top cell   maj5_16_bit_KSA_ene_opt
+
+
+.tran              {{t_step}}ps             {{end}}ps    {{begin}}ps  {{t_step}}ps
+.FiLE              {{out_file_name}}
+.print             i(Rac1)
+.print             nodev                    3016         0
+
+.print             i(Rac2)
+.print             nodev                    3019         0
