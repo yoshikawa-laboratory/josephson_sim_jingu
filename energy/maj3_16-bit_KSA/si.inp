@@ -119,8 +119,8 @@ XI0               bfr          1          2         20         16          5    
 ***         a         b         c         d
 L1                12        13   3.730pH fcheck
 L0                 1        11   3.460pH fcheck
-C6                13         0   0.001pF
-C0                11         0   0.001pF
+*C6                13         0   0.001pF
+*C0                11         0   0.001pF
 .ends
 
 *** bias_pair_20um
@@ -1518,7 +1518,7 @@ V1                55         0  pulse(20mV -20mV 1000ps 1ps 1ps 400ps 800ps)
 V10               72         0  pulse(20mV -20mV 1000ps 1ps 1ps 204800ps 409600ps)
 V11               77         0  pulse(20mV -20mV 1000ps 1ps 1ps 409600ps 819200ps)
 V12                7         0  pulse(20mV -20mV 1000ps 1ps 1ps 819200ps 1638400ps)
-V13               99         0  pulse(20mV -20mV 1000ps 1ps 1ps 1638400ps 3276800ps)
+V13               99         0  pulse(20mV -20mV 1000ps 1ps 1ps 819200ps 1638400ps)
 V14               60         0  pulse(20mV -20mV 1000ps 1ps 1ps 3276800ps 6553600ps)
 V15               17         0  pulse(20mV -20mV 1000ps 1ps 1ps 13107200ps 262144ps)
 V16               70         0  pulse(20mV -20mV 1000ps 1ps 1ps 262144ps 524288ps)
@@ -1545,14 +1545,35 @@ V6                65         0  pulse(20mV -20mV 1000ps 1ps 1ps 12800ps 25600ps)
 V7                83         0  pulse(20mV -20mV 1000ps 1ps 1ps 25600ps 51200ps)
 V8                78         0  pulse(20mV -20mV 1000ps 1ps 1ps 51200ps 102400ps)
 V9                74         0  pulse(20mV -20mV 1000ps 1ps 1ps 102400ps 204800ps)
-VAC1             122         0  SIN(0 810mV 5GHz 100ps 0)
-VAC2             124         0  SIN(0 810mV 5GHz 50ps 0)
+VAC1             122         0  SIN(0 81000mV 5GHz 100ps 0)
+VAC2             124         0  SIN(0 81000mV 5GHz 50ps 0)
 VDC              120         0  PWL(0ps 0mv 20ps 113000mV)
 
 
 
 *** netlist file ***
-.tran 0.2ps 54000ps 1ps
+.tran 0.2ps 100000ps 1ps
+.File hoge.csv
 *** jsim input file ***
+.print i(R32)
+.print i(R34)
+.print i(R33)
 
+.print i(Lq.XI2853)
+.print i(Lq.XI2789)
+.print i(Lq.XI2793)
+.print i(Lq.XI2797)
+.print i(Lq.XI2801)
+.print i(Lq.XI2805)
+.print i(Lq.XI2809)
+.print i(Lq.XI2813)
+.print i(Lq.XI2817)
+.print i(Lq.XI2821)
+.print i(Lq.XI2825)
+.print i(Lq.XI2829)
+.print i(Lq.XI2833)
+.print i(Lq.XI2837)
+.print i(Lq.XI2841)
+.print i(Lq.XI2845)
+.print i(Lq.XI2849)
 *** jsim input file ***
