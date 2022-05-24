@@ -80,8 +80,8 @@ R1                 6                         0            1e-12ohm
 
 .subckt            bias_pair_10um            1            2            3             4
 *inst name         cell_name                 a            b            c             d
-C0                 2                         0            0.00145pF
-C6                 4                         0            0.00144pF
+*C0                 2                         0            0.00145pF
+*C6                 4                         0            0.00144pF
 L0                 1                         2            3.46pH
 L1                 3                         4            3.73pH
 .ends
