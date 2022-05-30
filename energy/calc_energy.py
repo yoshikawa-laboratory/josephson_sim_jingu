@@ -18,7 +18,7 @@ from logging import getLogger, StreamHandler, Formatter
 from concurrent import futures
 import numpy as np
 import datetime
-
+import math
 from collections import deque
 
 ##description
@@ -87,8 +87,11 @@ def get_energy(filename:str,t_step:float=0.1):
         pyplot.clf()
         pyplot.close('all')
     values = eval_equations(df,t_step)
-    os.remove(filename+".CSV")
-    os.remove(filename+".inp")
+    if any([math.isnan(item) for item in values]):
+        pass
+    else:
+        os.remove(filename+".CSV")
+        os.remove(filename+".inp")
     return values
 
 def eval_equations(df : pd.DataFrame,t_step):
