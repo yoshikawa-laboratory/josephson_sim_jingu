@@ -82,8 +82,8 @@ B1                 9                  0            jjmod        area=1.0
 *inst name         cell_name          a            b            c             d
 L1                 3                  4            3.73pH
 L0                 1                  2            3.46pH
-C6                 4                  0            0.00144pF
-C0                 2                  0            0.00145pF
+*C6                 4                  0            0.00144pF
+*C0                 2                  0            0.00145pF
 .ends
 
 
