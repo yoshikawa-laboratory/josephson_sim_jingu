@@ -20,6 +20,7 @@ import numpy as np
 import datetime
 import math
 from collections import deque
+import json
 
 ##description
 
@@ -44,6 +45,10 @@ def dot (left:list, right:list)->Decimal:
 
 
 def gene_netlist( input_filename:str,freq:int=5000, input:str= "11111",t_step:float = 0.1)-> str:
+    #設定ファイル読み込み
+    with open('netlist.config.json') as f:
+        params = json.load(f)
+
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template(input_filename)
     ##freq should be mega heltz
@@ -61,7 +66,7 @@ def gene_netlist( input_filename:str,freq:int=5000, input:str= "11111",t_step:fl
     out_file_name = filename +'.CSV'
     data = {"freq":str(freq),"input":input_v,"end":end,"out_file_name": out_file_name,"period":period,"begin":begin,"t_step":t_step,"start_offset":start_offset}
 
-    disp_text = template.render(data)
+    disp_text = template.render(params)
 
     with open(filename+'.inp','w') as f:
         f.write(disp_text)

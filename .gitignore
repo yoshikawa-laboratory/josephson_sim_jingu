@@ -130,5 +130,7 @@ dmypy.json
 *.png
 [0-9]*_[0-9]*.inp
 [0-9]*_[0-9]*.CSV
-.csv
+*.csv
+*.CSV
 nohup.out
+

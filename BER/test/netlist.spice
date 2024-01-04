@@ -1,0 +1,75 @@
+.model             jjmod              jj(Rtype=1,  Vg=2.8mV,    Cap=0.064pF,             R0=100ohm,  Rn=17ohm,      Icrit=0.1mA)
+
+
+.subckt            bfr                1            2            3                        12          13             14
+*inst name         cell_name          a            din          dout                     q           xin            xout
+B1                 9                  0            jjmod        area=0.5
+B2                 5                  0            jjmod        area=0.5
+Kd1                Ld                 L1           -0.133
+Kd2                Ld                 L2           -0.133
+Kdout              Ld                 Lout         0.0
+Kdq                Ld                 Lq           0.0
+Kout               Lq                 Lout         -0.495
+Kx1                Lx                 L1           -0.186
+Kx2                Lx                 L2           -0.186
+Kxd                Lx                 Ld           0.19
+Kxout              Lx                 Lout         0.0
+Kxq                Lx                 Lq           0.0
+L1                 8                  9            1.59pH
+L2                 5                  8            1.59pH
+Ld                 2                  3            7.45pH
+Lin                1                  8            1.23pH
+Lout               6                  12           31.2pH
+Lq                 8                  0            7.92pH
+Lx                 13                 14           7.4pH
+R1                 6                  0            1e-12ohm
+.ends
+
+
+.subckt            sink               1            2            3                        10          11
+*inst name         cell_name          a            din          dout                     xin         xout
+B1                 8                  0            jjmod        area=0.5
+B2                 5                  0            jjmod        area=0.5
+Kd1                Ld                 L1           -0.154
+Kd2                Ld                 L2           -0.154
+Kdq                Ld                 Lq           0.0
+Kx1                Lx                 L1           -0.209
+Kx2                Lx                 L2           -0.209
+Kxd                Lx                 Ld           0.292
+Kxq                Lx                 Lq           0.0
+L1                 7                  8            1.53pH
+L2                 5                  7            1.53pH
+Ld                 2                  3            6.16pH
+Lin                1                  7            1.13pH
+Lq                 7                  0            7.88pH
+Lx                 10                 11           5.67pH
+.ends
+
+
+*this is top cell  bfr_chain_ref
+R0                 1                  32           1000.0ohm
+R9                 3                  33           100000.0ohm
+Rac1               4                  30           100000.0ohm
+Rac2               2                  27           100000.0ohm
+T0                 23                 0            9            0                        LOSSLESS    Z0={{imp}}ohm      TD={{delay}}ps
+V0                 1                  0            CUS          (INPUTS/INPUT.CSV  200ps       0.02V          0)
+VDC                3                  0            PWL          (0ps                     0mV         20ps           113000mV)
+VAC1               4                  0            SIN          (0                       81000mV     {{freq}}MEGHz  {{40+period|int/4}}ps  0)
+VAC2               2                  0            SIN          (0                       81000mV     {{freq}}MEGHz  40ps                   0)
+XI0                bfr                32           33           28                       38          30             26
+XI1                bfr                38           29           28                       37          27             22
+XI2                bfr                37           29           25                       36          24             26
+XI3                bfr                36           21           25                       23          17             22
+XI4                bfr                9            21           19                       34          24             20
+XI5                bfr                34           16           19                       31          17             18
+XI6                bfr                31           16           15                       35          0              20
+XI7                sink               35           0            15                       0           18
+*end of top cell   bfr_chain_ref
+
+
+.tran              {{t_step}}ps       {{end}}ns    {{begin}}ps  {{t_print_step}}ps
+.FiLE              {{out_file_name}}
+.print             i(R0)
+.print             i(LQ|XI7)
+.print             i(Lin|XI4)
+{{noise}}.temp              4.2
