@@ -30,7 +30,7 @@ def get_arg():
     parser.add_argument('-s','--sim',default="jsim",type=str, help='Default : jsim, jsim or josim241 or josim251.')
     parser.add_argument('-d','--dir',type=str, help='run_directory')
     parser.add_argument('-i','--input_filename',default='templete.inp',type=str, help='input_filename')
-    parser.add_argument('-p','--parallel',default=0,type=int,help = 'Parallel run. Default is 0. Please use it carefully.')
+    parser.add_argument('-p','--parallel',default=1,type=int,help = 'Parallel run. Default is 1. Please use it carefully.')
     parser.add_argument('-r','--random',default=0,type=int,help = 'Default is 0. ')
     parser.add_argument('-q','--equation',default='equation.txt',type=str, help='equation it should calclulate')
     return parser.parse_args()
@@ -70,16 +70,8 @@ def gene_netlist( input_filename:str,freq:int=5000, input:str= "11111",t_step:fl
 
 
 def get_energy(filename:str,t_step:float=0.1):
-    df = None
-    try:
-        if (args.sim =='jsim'):
-            df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=' ',header = None, index_col=0)
-            df.pop(df.columns[-1])
-        else : # expect josim
-            df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=',',header = None, index_col=0 ,skiprows =1)
-    except:
-        logger.error(f'josim run error at {filename}')    
-        return [np.nan,np.nan] 
+    df = pd.read_csv(filename+".CSV",encoding = 'utf-8', sep=',',header = None, index_col=0 ,skiprows =1)
+
 
     if args.figure:
         df.plot(subplots=True)
@@ -128,22 +120,23 @@ def run_sim(filename:str)->None:
         subprocess.run(["jsim_n",filename+'.inp'],stdout=subprocess.DEVNULL)
     else: # assume josim
         subprocess.run([args.sim,filename+'.inp'],stdout=subprocess.DEVNULL)
+    logger.debug(f'finish {filename}')
         
 
 def main()->None:
     time_begin= time.time()
     os.chdir(args.dir)
-    #freqs = [8000,5000,4000,2000,1000,800,640,500,400,320,200,160,125,100]
-    freqs = [8000,4000,2000,1000,500,400,320,200,100]
+    freqs = [8000,5000,4000,2000,1000,800,640,500,400,320,200,160,125,100]
+    # freqs = [8000,4000,2000,1000,500,400,320,200,100]
     future_result =[]
     input_vects = []
     if args.random == 0:
         input_vects = range(int(2**args.input_num))
     else:
-        input_vects = np.random.randint(0,int(2**args.input_num),args.random)
-        logging.info(input_vects)
-    logging.info("state 1")
-    with futures.ThreadPoolExecutor(max_workers=4) as executor:
+        input_vects = sorted(set(list(np.random.randint(0,int(2**args.input_num),args.random))))
+        logger.info(input_vects)
+    logger.info("state 1")
+    with futures.ThreadPoolExecutor(max_workers=args.parallel) as executor:
         for i,num in enumerate(input_vects):
             # if(i==50):
             #     break
@@ -151,7 +144,8 @@ def main()->None:
             for freq in freqs:
                 future = executor.submit(gene_run_sim,input_vect,freq)
                 future_result.append(future)
-    logging.info("exporting simulation result")
+    time.sleep(10)
+    logger.info("exporting simulation result")
     time_stamp = datetime.datetime.fromtimestamp(time.time())
     with open(f"energy_{args.sim}_{time_stamp.strftime('%m_%d_%H_%M_%S')}.csv",mode ='w') as f:
         for item in future_result:
@@ -159,9 +153,9 @@ def main()->None:
             energy = get_energy(foo[2])
             energy_str = ",".join([str(x) for x in energy])
             f.write(f'0b{foo[0]},{str(foo[1])},{energy_str}\n')
-    logging.info("state 3")
+    logger.info("state 3")
     time_end = time.time()    
-    logging.info(f"Run time {time_end-time_begin} sec")
+    logger.info(f"Run time {time_end-time_begin} sec")
 
 
 #### grobal parameter ####
