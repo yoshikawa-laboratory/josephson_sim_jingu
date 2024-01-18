@@ -1240,7 +1240,7 @@ VAC1               2803               0            SIN          (0            81
 
 .tran              {{t_step}}ps       {{end}}ps    {{begin}}ps  {{t_step}}ps
 .FiLE              {{out_file_name}}
-.print             i(R33)
+.print             i(R32)
 .print             nodev              3065         0
 
 .print             i(R34)

@@ -75,9 +75,9 @@ XI2               bfr         33         31         34         30         35    
 XI13              bfr         36         37         34         33         38         32
 XI6               bfr         28         26         23         22          6         21
 Vin               39         0  PWL(0ps 0mv 20ps {{input[0]}}V)
-Vx2               40         0  SIN(0 81000mV {{freq}}MEGHz 40ps 0))
+Vx2               40         0  SIN(0 81000mV {{freq}}MEGHz 50ps 0))
 Vdc               41         0  PWL(0ps 0mv 20ps 113000mV)
-Vx1               42         0  SIN(0 81000mV {{freq}}MEGHz {{40+ period|int/4}}ps 0)
+Vx1               42         0  SIN(0 81000mV {{freq}}MEGHz {{50+ period|int/4}}ps 0)
 Rin               39        36  1000.00ohm
 Rx2               40        35  100000.00ohm
 Rdc               41        37  100000.00ohm
@@ -89,11 +89,10 @@ Rx1               42        38  100000.00ohm
 
 *** jsim input file ***
 .FiLE {{out_file_name}}
- .print devi Rx1
- .print nodev 38 0
- .print devi Rx2
- .print nodev 35 0 
- .print nodev 6 21
-
-
-
+.print devi Rx1
+.print nodev 38 0
+.print devi Rx2
+.print nodev 35 0 
+.print nodev 6 21
+*.print devi XI8_Lq
+*.print devi XI2_Lq

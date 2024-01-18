@@ -1,0 +1,8 @@
+InductEx v7.0 (19 September 2022). Copyright 2003-2022 Coenrad Fourie
+Licenced to:
+  Yoshikawa-group, YNU (Pikachu), until 31 Dec 2023. [Super]
+
+Execution start time stamp: 8/21/23 11:22:53 AM
+Parameter string: --version 
+
+(1) Cannot find a valid layout input file (GDS or IXI).

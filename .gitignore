@@ -132,3 +132,4 @@ dmypy.json
 [0-9]*_[0-9]*.CSV
 .csv
 nohup.out
+energy/nohup.out

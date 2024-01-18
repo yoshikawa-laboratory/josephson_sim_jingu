@@ -64,8 +64,8 @@ B1                 9                 0            jjmod        area=1.0
 *inst name         cell_name         a            b            c              d
 L1                 3                 4            3.73pH
 L0                 1                 2            3.46pH
-C6                 4                 0            0.00144pF
-C0                 2                 0            0.00145pF
+*C6                 4                 0            0.00144pF
+*C0                 2                 0            0.00145pF
 .ends
 
 
@@ -456,7 +456,7 @@ XI1384             maj3_KSA_sum      545          16           3              8 
 
 
 .tran              {{t_step}}ps      {{end}}ps    {{begin}}ps  {{t_step}}ps)
-.FiLE              {{out_file_name}
+.FiLE              {{out_file_name}}
 .print             i(Rac1)
 .print             nodev             559          0
 

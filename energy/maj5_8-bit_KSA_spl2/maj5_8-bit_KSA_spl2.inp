@@ -47,8 +47,8 @@ B1                 8         0  jjmod area=0.50
 ***         a         b         c         d
 L1                12        13   3.730pH fcheck
 L0                 1        11   3.460pH fcheck
-C6                13         0   0.001pF
-C0                11         0   0.001pF
+*C6                13         0   0.001pF
+*C0                11         0   0.001pF
 .ends
 
 *** branch2
@@ -678,8 +678,8 @@ XI153      risako_SUM        436       1165        609        620        618    
 .FiLE {{out_file_name}}
 .print i(R0)
 .print nodev 364 0
-.print i(R0)
+.print i(R2)
 .print nodev 367 0
 
 .print nodev 369 120 
-.print nodev 372 1170
+.print nodev 372 99
