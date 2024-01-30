@@ -89,54 +89,54 @@ Rx1               42        38  100000.00ohm
 
 *** jsim input file ***
 .FiLE {{out_file_name}}
-* .print devi Rx1
-* .print nodev 38 0
-* .print devi Rx2
-* .print nodev 35 0 
-* .print nodev 6 21
+ .print devi Rx1
+ .print nodev 38 0
+ .print devi Rx2
+ .print nodev 35 0 
+ .print nodev 6 21
 * .print devi Lq.XI8
 * .print devi Lq.XI2
-.print i(B1.XI13)
-.print v(7.XI13)
-.print i(B2.XI13)
-.print v(8.XI13)
+*.print i(B1.XI13)
+*.print v(7.XI13)
+*.print i(B2.XI13)
+*.print v(8.XI13)
 
-.print i(B1.XI2)
-.print v(7.XI2)
-.print i(B2.XI2)
-.print v(8.XI2)
+*.print i(B1.XI2)
+*.print v(7.XI2)
+*.print i(B2.XI2)
+*.print v(8.XI2)
 
-.print i(B1.XI3)
-.print v(7.XI3)
-.print i(B2.XI3)
-.print v(8.XI3)
+*.print i(B1.XI3)
+*.print v(7.XI3)
+*.print i(B2.XI3)
+*.print v(8.XI3)
 
-.print i(B1.XI5)
-.print v(7.XI5)
-.print i(B2.XI5)
-.print v(8.XI5)
+*.print i(B1.XI5)
+*.print v(7.XI5)
+*.print i(B2.XI5)
+*.print v(8.XI5)
 
-.print i(B1.XI6)
-.print v(7.XI6)
-.print i(B2.XI6)
-.print v(8.XI6)
+*.print i(B1.XI6)
+*.print v(7.XI6)
+*.print i(B2.XI6)
+*.print v(8.XI6)
 
-.print i(B1.XI7)
-.print v(7.XI7)
-.print i(B2.XI7)
-.print v(8.XI7)
+*.print i(B1.XI7)
+*.print v(7.XI7)
+*.print i(B2.XI7)
+*.print v(8.XI7)
 
-.print i(B1.XI8)
-.print v(7.XI8)
-.print i(B2.XI8)
-.print v(8.XI8)
+*.print i(B1.XI8)
+*.print v(7.XI8)
+*.print i(B2.XI8)
+*.print v(8.XI8)
 
-.print i(B1.XI15)
-.print v(7.XI15)
-.print i(B2.XI15)
-.print v(8.XI15)
+*.print i(B1.XI15)
+*.print v(7.XI15)
+*.print i(B2.XI15)
+*.print v(8.XI15)
 
-.print i(B1.XI14)
-.print v(7.XI14)
-.print i(B2.XI14)
-.print v(8.XI14)
+*.print i(B1.XI14)
+*.print v(7.XI14)
+*.print i(B2.XI14)
+*.print v(8.XI14)
